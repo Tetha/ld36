@@ -15,11 +15,15 @@ public class Level {
     }
     
     public boolean hasVisibleTreasure(int x, int y) {
-        if (isScanned[x][y]) {
+        if (wasScanned(x, y)) {
             return noiseMap[x][y] > treasureThreshold;
         } else {
             return false;
         }
+    }
+    
+    public boolean wasScanned(int x, int y) {
+        return isScanned[x][y];
     }
     
     public static Level newLevel(Random r, int width, int height, float treasureThreshold) {
