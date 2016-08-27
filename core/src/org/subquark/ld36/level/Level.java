@@ -23,6 +23,10 @@ public class Level {
         this.treasureThreshold = treasureThreshold;
     }
     
+    public float getRawNoiseAt(int x, int y) {
+        return noiseMap[x][y];
+    }
+    
     public boolean hasVisibleTreasure(int x, int y) {
         if (wasScanned(x, y)) {
             return noiseMap[x][y] > treasureThreshold;
@@ -45,7 +49,7 @@ public class Level {
     
     public static Level newLevel(Random r, int width, int height, float treasureThreshold) {
         float[][] whiteNoise = PerlinNoise.generateWhiteNoise(r, 60, 50);
-        float[][] noiseMap = PerlinNoise.generatePerlinNoise(whiteNoise, 4);
+        float[][] noiseMap = PerlinNoise.generatePerlinNoise(whiteNoise, 0.3f,  4);
         return new Level(width, height, noiseMap, treasureThreshold);
     }
 

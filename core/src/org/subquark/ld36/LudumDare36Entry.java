@@ -34,7 +34,6 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	
 	Random levelGenRandom = new Random();
 	Random otherRandom = new Random();
-	private float[][] noise;
 	
 	private GameState gameState = new GameState();
     private WorkerUpdater workerUpdater;
@@ -109,9 +108,8 @@ public class LudumDare36Entry extends ApplicationAdapter {
 		scannerUpdater.update();
 		digSiteUpdater.update();
 		
-		//drawGrid();
-		
 		levelDisplay.update();
+		//drawGrid();
 		
         campDisplay.update();
         scannerDisplay.update();
@@ -125,9 +123,9 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	
 	private void drawGrid() {
 	    renderer.begin(ShapeType.Filled);
-	    for (int i = 0; i < 60; i++) {
-	        for (int j = 0; j < 50; j++) {
-	            float noiseHere = noise[i][j];
+	    for (int i = 0; i < Level.WIDTH_TILES; i++) {
+	        for (int j = 0; j < Level.HEIGHT_TILES; j++) {
+	            float noiseHere = gameState.level.getRawNoiseAt(i, j);
 	            if (noiseHere > 0.8) {
 	                renderer.setColor(noiseHere, noiseHere, noiseHere, noiseHere);
 	            } else {

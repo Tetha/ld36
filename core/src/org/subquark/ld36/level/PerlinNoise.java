@@ -41,12 +41,11 @@ public class PerlinNoise {
         return smoothNoise;
     }
     
-    public static float[][] generatePerlinNoise(float[][] whiteNoise, int octaveCount) {
+    public static float[][] generatePerlinNoise(float[][] whiteNoise, float persistence, int octaveCount) {
         int width = whiteNoise.length;
         int height = whiteNoise[0].length;
         
         float [][][] smoothNoise = new float[octaveCount][][];
-        float persistance = 0.7f;
         
         for (int ii = 0; ii < octaveCount; ii++) {
             smoothNoise[ii] = generateSmoothNoise(whiteNoise, ii);
@@ -57,7 +56,7 @@ public class PerlinNoise {
         float totalAmplitude = 0.0f;
         
         for (int octave = octaveCount -1; octave >= 0; octave--) {
-            amplitude *= persistance;
+            amplitude *= persistence;
             totalAmplitude += amplitude;
             
             for (int ii = 0; ii < width; ii++) {
