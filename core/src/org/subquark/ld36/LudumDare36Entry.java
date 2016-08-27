@@ -7,6 +7,8 @@ import java.util.Random;
 import org.subquark.ld36.camp.Camp;
 import org.subquark.ld36.camp.CampDisplay;
 import org.subquark.ld36.camp.CampUpdater;
+import org.subquark.ld36.level.Level;
+import org.subquark.ld36.level.LevelDisplay;
 import org.subquark.ld36.level.PerlinNoise;
 import org.subquark.ld36.scanner.Scanner;
 import org.subquark.ld36.scanner.ScannerDisplay;
@@ -31,6 +33,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	Random r = new Random();
 	private float[][] noise;
 	
+	private Level level;
 	private List<Worker> workers;
 	private List<Camp> camps;
 	private List<Scanner> scanners;
@@ -39,6 +42,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	private CampUpdater campUpdater;
 	private ScannerUpdater scannerUpdater;
 	
+	private LevelDisplay levelDisplay;
 	private WorkerDisplay workerDisplay;
 	private CampDisplay campDisplay;
 	private ScannerDisplay scannerDisplay;
@@ -48,6 +52,8 @@ public class LudumDare36Entry extends ApplicationAdapter {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
         renderer = new ShapeRenderer();
+        
+        level = Level.newLevel(r, 60, 50, 0.8f);
         
 	    workers = new ArrayList<Worker>();
 		camps = new ArrayList<Camp>();
@@ -60,9 +66,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 		workerDisplay = new WorkerDisplay(workers);
 		campDisplay = new CampDisplay(camps);
 		scannerDisplay = new ScannerDisplay(scanners);
-		
-		float[][] whiteNoise = PerlinNoise.generateWhiteNoise(r, 60, 50);
-		noise = PerlinNoise.generatePerlinNoise(whiteNoise, 4);
+		levelDisplay = new LevelDisplay(level);
 		
 		Worker testWorker = new Worker();
 		workers.add(testWorker);
@@ -96,8 +100,9 @@ public class LudumDare36Entry extends ApplicationAdapter {
 		campUpdater.update();
 		scannerUpdater.update();
 		
-		drawGrid();
+		//drawGrid();
 		
+		levelDisplay.update();
         campDisplay.update();
         scannerDisplay.update();
         workerDisplay.update();
