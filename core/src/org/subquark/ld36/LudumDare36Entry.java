@@ -13,6 +13,8 @@ import org.subquark.ld36.level.PerlinNoise;
 import org.subquark.ld36.scanner.Scanner;
 import org.subquark.ld36.scanner.ScannerDisplay;
 import org.subquark.ld36.scanner.ScannerUpdater;
+import org.subquark.ld36.shop.ShopDisplay;
+import org.subquark.ld36.shop.ShopInputHandler;
 import org.subquark.ld36.workers.Worker;
 import org.subquark.ld36.workers.WorkerDisplay;
 import org.subquark.ld36.workers.WorkerUpdater;
@@ -43,10 +45,13 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	private CampUpdater campUpdater;
 	private ScannerUpdater scannerUpdater;
 	
+	private ShopInputHandler inputHandler;
+	
 	private LevelDisplay levelDisplay;
 	private WorkerDisplay workerDisplay;
 	private CampDisplay campDisplay;
 	private ScannerDisplay scannerDisplay;
+	private ShopDisplay shopDisplay;
 	
 	@Override
 	public void create () {
@@ -64,10 +69,15 @@ public class LudumDare36Entry extends ApplicationAdapter {
         campUpdater = new CampUpdater(workers, camps);
         scannerUpdater = new ScannerUpdater(otherRandom, level, scanners);
         
+        inputHandler = new ShopInputHandler();
+        Gdx.input.setInputProcessor(inputHandler);
+        
 		workerDisplay = new WorkerDisplay(workers);
 		campDisplay = new CampDisplay(camps);
 		scannerDisplay = new ScannerDisplay(scanners);
 		levelDisplay = new LevelDisplay(level);
+		shopDisplay = new ShopDisplay(inputHandler);
+		
 		
 		Worker testWorker = new Worker();
 		workers.add(testWorker);
@@ -107,6 +117,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
         campDisplay.update();
         scannerDisplay.update();
         workerDisplay.update();
+        shopDisplay.update();
 	}
 	
 	private void drawGrid() {
