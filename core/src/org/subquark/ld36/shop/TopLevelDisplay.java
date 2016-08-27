@@ -7,20 +7,22 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class ArtifactCountDisplay {
+public class TopLevelDisplay {
     private static final Batch batch = new SpriteBatch();
     private static final ShapeRenderer renderer = new ShapeRenderer();
     private static final BitmapFont font = new BitmapFont();
     
     private final GameState gameState;
     
-    public ArtifactCountDisplay(GameState gameState) {
+    public TopLevelDisplay(GameState gameState) {
         this.gameState = gameState;
     }
     
     public void update() {
         batch.begin();
-        font.draw(batch, "Total Artifacts: " + gameState.artifacts + " / Unresearched Artifacts: " + gameState.unresearchedArtifacts(), 10, 460);
+        font.draw(batch,
+                  String.format("Total Artifacts: %d / Unresearched Artifacts: %d / Money: %d", gameState.artifacts, gameState.unresearchedArtifacts(), gameState.money),
+                  10, 480);
         batch.end();
     }
 }

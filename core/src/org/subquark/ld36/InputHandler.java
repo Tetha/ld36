@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import org.subquark.ld36.camp.Camp;
 import org.subquark.ld36.digsite.DigSite;
+import org.subquark.ld36.research_camp.ResearchCamp;
 import org.subquark.ld36.scanner.Scanner;
 
 import com.badlogic.gdx.Gdx;
@@ -76,6 +77,10 @@ public class InputHandler implements InputProcessor {
                 case Nothing:
                     break;
                 case Research :
+                    ResearchCamp newResearchCamp = new ResearchCamp();
+                    gameState.researchCamps.add(newResearchCamp);
+                    newResearchCamp.x = clickX;
+                    newResearchCamp.y = clickY;
                     break;
                 case Scanner:
                     Scanner newScanner = new Scanner();

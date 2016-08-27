@@ -9,10 +9,12 @@ import org.subquark.ld36.digsite.DigSiteDisplay;
 import org.subquark.ld36.digsite.DigSiteUpdater;
 import org.subquark.ld36.level.Level;
 import org.subquark.ld36.level.LevelDisplay;
+import org.subquark.ld36.research_camp.ResearchCampDisplay;
+import org.subquark.ld36.research_camp.ResearchCampUpdater;
 import org.subquark.ld36.scanner.Scanner;
 import org.subquark.ld36.scanner.ScannerDisplay;
 import org.subquark.ld36.scanner.ScannerUpdater;
-import org.subquark.ld36.shop.ArtifactCountDisplay;
+import org.subquark.ld36.shop.TopLevelDisplay;
 import org.subquark.ld36.shop.ShopDisplay;
 import org.subquark.ld36.workers.Worker;
 import org.subquark.ld36.workers.WorkerDisplay;
@@ -39,6 +41,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	private CampUpdater campUpdater;
 	private ScannerUpdater scannerUpdater;
 	private DigSiteUpdater digSiteUpdater;
+	private ResearchCampUpdater researchCampUpdater;
 	
 	private InputHandler inputHandler;
 	
@@ -48,7 +51,8 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	private ScannerDisplay scannerDisplay;
 	private ShopDisplay shopDisplay;
 	private DigSiteDisplay digSiteDisplay;
-	private ArtifactCountDisplay artifactCountDisplay;
+	private TopLevelDisplay artifactCountDisplay;
+	private ResearchCampDisplay researchCampDisplay;
 	
 	@Override
 	public void create () {
@@ -62,6 +66,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
         campUpdater = new CampUpdater(gameState);
         scannerUpdater = new ScannerUpdater(otherRandom, gameState);
         digSiteUpdater = new DigSiteUpdater(gameState);
+        researchCampUpdater = new ResearchCampUpdater(gameState);
         
         inputHandler = new InputHandler(gameState);
         Gdx.input.setInputProcessor(inputHandler);
@@ -72,7 +77,8 @@ public class LudumDare36Entry extends ApplicationAdapter {
 		levelDisplay = new LevelDisplay(gameState);
 		shopDisplay = new ShopDisplay(inputHandler);
 		digSiteDisplay = new DigSiteDisplay(gameState);
-		artifactCountDisplay = new ArtifactCountDisplay(gameState);
+		artifactCountDisplay = new TopLevelDisplay(gameState);
+		researchCampDisplay = new ResearchCampDisplay(gameState);
 		
 		Worker testWorker = new Worker();
 		gameState.workers.add(testWorker);
@@ -106,6 +112,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 		campUpdater.update();
 		scannerUpdater.update();
 		digSiteUpdater.update();
+		researchCampUpdater.update();
 		
 		if (gameState.debugging) {
 		    drawGrid();
@@ -115,6 +122,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
         campDisplay.update();
         scannerDisplay.update();
         digSiteDisplay.update();
+        researchCampDisplay.update();
         
         workerDisplay.update();
         
