@@ -69,7 +69,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
         campUpdater = new CampUpdater(workers, camps);
         scannerUpdater = new ScannerUpdater(otherRandom, level, scanners);
         
-        inputHandler = new ShopInputHandler();
+        inputHandler = new ShopInputHandler(camps, scanners);
         Gdx.input.setInputProcessor(inputHandler);
         
 		workerDisplay = new WorkerDisplay(workers);
