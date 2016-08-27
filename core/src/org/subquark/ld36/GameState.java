@@ -15,4 +15,6 @@ public class GameState {
     public List<Camp> camps = new ArrayList<Camp>();
     public List<Scanner> scanners = new ArrayList<Scanner>();
     public List<DigSite> digSites = new ArrayList<DigSite>();
+    
+    public int artifacts = 0;
 }

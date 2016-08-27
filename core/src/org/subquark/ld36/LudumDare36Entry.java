@@ -12,6 +12,7 @@ import org.subquark.ld36.level.LevelDisplay;
 import org.subquark.ld36.scanner.Scanner;
 import org.subquark.ld36.scanner.ScannerDisplay;
 import org.subquark.ld36.scanner.ScannerUpdater;
+import org.subquark.ld36.shop.ArtifactCountDisplay;
 import org.subquark.ld36.shop.ShopDisplay;
 import org.subquark.ld36.shop.ShopInputHandler;
 import org.subquark.ld36.workers.Worker;
@@ -49,6 +50,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	private ScannerDisplay scannerDisplay;
 	private ShopDisplay shopDisplay;
 	private DigSiteDisplay digSiteDisplay;
+	private ArtifactCountDisplay artifactCountDisplay;
 	
 	@Override
 	public void create () {
@@ -72,6 +74,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 		levelDisplay = new LevelDisplay(gameState);
 		shopDisplay = new ShopDisplay(inputHandler);
 		digSiteDisplay = new DigSiteDisplay(gameState);
+		artifactCountDisplay = new ArtifactCountDisplay(gameState);
 		
 		Worker testWorker = new Worker();
 		gameState.workers.add(testWorker);
@@ -117,6 +120,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
         workerDisplay.update();
         
         shopDisplay.update();
+        artifactCountDisplay.update();
 	}
 	
 	private void drawGrid() {

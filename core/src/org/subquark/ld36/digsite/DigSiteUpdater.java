@@ -22,13 +22,11 @@ public class DigSiteUpdater {
             ds.depthMined += deltaTime;
             if (ds.depthMined >= DigSite.SECONDS_PER_PAYOUT) {
                 ds.depthMined -= DigSite.SECONDS_PER_PAYOUT;
-                int positionXInTile = ds.x / Level.TILE_PIXELS;
-                int positionYInTile = ds.y / Level.TILE_PIXELS;
                 
-                for ( int x = positionXInTile - DigSite.MINING_RANGE_RADIUS; x < positionXInTile + DigSite.MINING_RANGE_RADIUS; x++ ) {
-                    for ( int y = positionYInTile - DigSite.MINING_RANGE_RADIUS; y < positionYInTile + DigSite.MINING_RANGE_RADIUS; y++ ) {
-                        if (gameState.level.hasVisibleTreasure(x, y)) {
-                            Gdx.app.log("digsite updater", "MONEY!");
+                for (int xO = 0; xO < ds.totalMiningDiameterHorizontallyTiles(); xO++) {
+                    for (int yO = 0; yO < ds.totalMiningDiameterVerticallyTiles(); yO++) {
+                        if (gameState.level.hasVisibleTreasure(ds.smallestXMinedTiles() + xO, ds.smallestYMinedTiles() + yO)) {
+                            gameState.artifacts += 1;
                         }
                     }
                 }

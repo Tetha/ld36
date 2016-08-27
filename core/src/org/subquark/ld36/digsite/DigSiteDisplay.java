@@ -1,7 +1,6 @@
 package org.subquark.ld36.digsite;
 
 import org.subquark.ld36.GameState;
-import org.subquark.ld36.level.Level;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -29,11 +28,9 @@ public class DigSiteDisplay {
             blockRenderer.rect(ds.x - DigSite.WIDTH/2, ds.y - DigSite.HEIGHT/2, DigSite.WIDTH, DigSite.HEIGHT);
             
             if (ds.workerPower > 0) {
-                int positionXInTile = ds.x / Level.TILE_PIXELS;
-                int positionYInTile = ds.y / Level.TILE_PIXELS;
-
-                lineRenderer.rect(positionXInTile - DigSite.MINING_RANGE_RADIUS, positionYInTile - DigSite.MINING_RANGE_RADIUS,
-                                  2*DigSite.MINING_RANGE_RADIUS, 2*DigSite.MINING_RANGE_RADIUS);
+                lineRenderer.rect(ds.smallestXMinedPixels(), ds.smallestYMinedPixels(),
+                                  ds.totalMiningDiameterHorizontallyPixels(),
+                                  ds.totalMiningDiameterVerticallyPixels());
             }
         }
         lineRenderer.end();
