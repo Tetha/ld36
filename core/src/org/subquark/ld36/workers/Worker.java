@@ -2,7 +2,7 @@ package org.subquark.ld36.workers;
 
 public class Worker {
     // s
-    public static final float START_LIFETIME = 2;
+    public static final float START_LIFETIME = 1;
 
     // pixels / s
     public static final float STRAIGHT_VELOCITY = 75;

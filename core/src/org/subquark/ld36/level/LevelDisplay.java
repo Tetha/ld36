@@ -14,8 +14,8 @@ public class LevelDisplay {
     
     public void update() {
         renderer.begin(ShapeType.Filled);
-        for (int i = 0; i < 60; i++) {
-            for (int j = 0; j < 50; j++) {
+        for (int i = 0; i < Level.WIDTH_TILES; i++) {
+            for (int j = 0; j < Level.HEIGHT_TILES; j++) {
                 boolean drawScanBox = false;
                 if (level.hasVisibleTreasure(i, j)) {
                     renderer.setColor(Color.GOLD);

@@ -28,7 +28,6 @@ public class WorkerUpdater {
         while (wIter.hasNext()) {
             Worker w = wIter.next();
             w.lifetimeLeft -= deltaTime;
-            Gdx.app.log("worker_updater", "worker now has lifetime " + w.lifetimeLeft);
             if (w.lifetimeLeft <= 0) {
                 if(!removedAlready) {
                     wIter.remove();

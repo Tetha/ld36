@@ -54,7 +54,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 
         renderer = new ShapeRenderer();
         
-        level = Level.newLevel(levelGenRandom, 60, 50, 0.8f);
+        level = Level.newLevel(levelGenRandom, Level.WIDTH_TILES, Level.HEIGHT_TILES, 0.8f);
         
 	    workers = new ArrayList<Worker>();
 		camps = new ArrayList<Camp>();

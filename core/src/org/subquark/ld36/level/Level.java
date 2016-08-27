@@ -4,7 +4,9 @@ import java.util.Random;
 
 public class Level {
     public static final int TILE_PIXELS = 10;
-
+    public static final int WIDTH_TILES = 50;
+    public static final int HEIGHT_TILES = 45;
+    
     private final float treasureThreshold;
     
     private final int width;
