@@ -23,13 +23,17 @@ public class WorkerUpdater {
     public void update() {
         float deltaTime = Gdx.graphics.getDeltaTime();
         
+        boolean removedAlready = false;
         Iterator<Worker> wIter = workers.iterator();
         while (wIter.hasNext()) {
             Worker w = wIter.next();
             w.lifetimeLeft -= deltaTime;
             Gdx.app.log("worker_updater", "worker now has lifetime " + w.lifetimeLeft);
             if (w.lifetimeLeft <= 0) {
-                wIter.remove();
+                if(!removedAlready) {
+                    wIter.remove();
+                    removedAlready = true;
+                }
             }
             
             w.x += w.velocityX * deltaTime;
@@ -38,7 +42,10 @@ public class WorkerUpdater {
             for (Camp c : camps) {
                 if (c.x - Camp.CAMP_WIDTH / 2 <= w.x - Worker.WORKER_DIAMETER && w.x - Worker.WORKER_DIAMETER <= c.x + Camp.CAMP_WIDTH / 2) {
                     if (c.y - Camp.CAMP_HEIGHT / 2 <= w.y - Worker.WORKER_DIAMETER && w.y - Worker.WORKER_DIAMETER <= c.y + Camp.CAMP_HEIGHT / 2) {
-                        wIter.remove();
+                        if(!removedAlready) {
+                            wIter.remove();
+                            removedAlready = true;
+                        }
                     }
                 }
             }
@@ -47,8 +54,10 @@ public class WorkerUpdater {
                 if (s.x - Scanner.SCANNER_WIDTH / 2 <= w.x + Worker.WORKER_DIAMETER && w.x - Worker.WORKER_DIAMETER <= s.x + Scanner.SCANNER_WIDTH / 2) {
                     if (s.y - Scanner.SCANNER_HEIGHT / 2 <= w.y + Worker.WORKER_DIAMETER && w.y - Worker.WORKER_DIAMETER <= s.y + Scanner.SCANNER_HEIGHT / 2) {
                         s.workerPower = Scanner.POWER_FOR_ONE_WORKER;
-                        wIter.remove();
-                    }
+                        if(!removedAlready) {
+                            wIter.remove();
+                            removedAlready = true;
+                        }                    }
                 }
             }
 

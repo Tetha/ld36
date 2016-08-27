@@ -2,10 +2,12 @@ package org.subquark.ld36;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.subquark.ld36.camp.Camp;
 import org.subquark.ld36.camp.CampDisplay;
 import org.subquark.ld36.camp.CampUpdater;
+import org.subquark.ld36.level.PerlinNoise;
 import org.subquark.ld36.scanner.Scanner;
 import org.subquark.ld36.scanner.ScannerDisplay;
 import org.subquark.ld36.scanner.ScannerUpdater;
@@ -16,13 +18,18 @@ import org.subquark.ld36.workers.WorkerUpdater;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class LudumDare36Entry extends ApplicationAdapter {
-	SpriteBatch batch;
+	ShapeRenderer renderer;
 	Texture img;
+	
+	Random r = new Random();
+	private float[][] noise;
 	
 	private List<Worker> workers;
 	private List<Camp> camps;
@@ -40,6 +47,8 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	public void create () {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
+        renderer = new ShapeRenderer();
+        
 	    workers = new ArrayList<Worker>();
 		camps = new ArrayList<Camp>();
 		scanners = new ArrayList<Scanner>();
@@ -52,6 +61,8 @@ public class LudumDare36Entry extends ApplicationAdapter {
 		campDisplay = new CampDisplay(camps);
 		scannerDisplay = new ScannerDisplay(scanners);
 		
+		float[][] whiteNoise = PerlinNoise.generateWhiteNoise(r, 60, 50);
+		noise = PerlinNoise.generatePerlinNoise(whiteNoise, 4);
 		
 		Worker testWorker = new Worker();
 		workers.add(testWorker);
@@ -85,11 +96,28 @@ public class LudumDare36Entry extends ApplicationAdapter {
 		campUpdater.update();
 		scannerUpdater.update();
 		
+		drawGrid();
+		
         campDisplay.update();
         scannerDisplay.update();
         workerDisplay.update();
 	}
 	
+	private void drawGrid() {
+	    renderer.begin(ShapeType.Filled);
+	    for (int i = 0; i < 60; i++) {
+	        for (int j = 0; j < 50; j++) {
+	            float noiseHere = noise[i][j];
+	            if (noiseHere > 0.8) {
+	                renderer.setColor(noiseHere, noiseHere, noiseHere, noiseHere);
+	            } else {
+	                renderer.setColor(Color.BLACK);
+	            }
+	            renderer.rect(i * 10, j * 10, 10, 10);
+	        }
+	    }
+	    renderer.end();
+	}
 	@Override
 	public void dispose () {
 	}
