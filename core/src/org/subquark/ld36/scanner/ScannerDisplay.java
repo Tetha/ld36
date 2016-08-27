@@ -2,12 +2,16 @@ package org.subquark.ld36.scanner;
 
 import java.util.List;
 
+import org.subquark.ld36.level.Level;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class ScannerDisplay {
-    private static final ShapeRenderer renderer = new ShapeRenderer();
+    private static final ShapeRenderer blockRenderer = new ShapeRenderer();
+    private static final ShapeRenderer lineRenderer = new ShapeRenderer();
+    
     private final List<Scanner> scanners;
     
     public ScannerDisplay(List<Scanner> scanners) {
@@ -15,16 +19,24 @@ public class ScannerDisplay {
     }
     
     public void update() {
-        renderer.begin(ShapeType.Filled);
+        blockRenderer.begin(ShapeType.Filled);
+        lineRenderer.begin(ShapeType.Line);
         for (Scanner s : scanners) {
             if (s.workerPower > 0) {
-                renderer.setColor(Color.MAGENTA);
+                blockRenderer.setColor(Color.MAGENTA);
             } else {
-                renderer.setColor(Color.PURPLE);
+                blockRenderer.setColor(Color.PURPLE);
             }
 
-            renderer.rect(s.x - Scanner.SCANNER_WIDTH/2, s.y - Scanner.SCANNER_HEIGHT / 2, Scanner.SCANNER_WIDTH, Scanner.SCANNER_HEIGHT);
+            blockRenderer.rect(s.x - Scanner.SCANNER_WIDTH/2, s.y - Scanner.SCANNER_HEIGHT / 2, Scanner.SCANNER_WIDTH, Scanner.SCANNER_HEIGHT);
+            
+            lineRenderer.setColor(Color.GREEN);
+            if (s.cooldown > 0) {
+                lineRenderer.rect(s.scanningX, s.scanningY, Level.TILE_PIXELS, Level.TILE_PIXELS);
+                lineRenderer.line(s.scanningX + Level.TILE_PIXELS / 2, s.scanningY + Level.TILE_PIXELS / 2, s.x, s.y);
+            }
         }
-        renderer.end();
+        lineRenderer.end();
+        blockRenderer.end();
     }
 }

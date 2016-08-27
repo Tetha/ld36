@@ -23,11 +23,12 @@ public class LevelDisplay {
                     drawScanBox = true;
                     renderer.setColor(Color.BROWN);
                 }
-                renderer.rect(i * 10, j * 10, 10, 10);
+                renderer.rect(i * Level.TILE_PIXELS, j * Level.TILE_PIXELS, Level.TILE_PIXELS, Level.TILE_PIXELS);
                 
                 if (drawScanBox && level.wasScanned(i, j)) {
                     renderer.setColor(1f, 0f, 0f, 0.4f);
-                    renderer.rect(i * 10 + 4, j * 10 + 4, 2, 2);
+                    int offset = (Level.TILE_PIXELS - 2) / 2;
+                    renderer.rect(i * Level.TILE_PIXELS + offset, j * Level.TILE_PIXELS + offset, 2, 2);
                 }
             }
         }

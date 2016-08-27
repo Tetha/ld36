@@ -30,7 +30,8 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	ShapeRenderer renderer;
 	Texture img;
 	
-	Random r = new Random();
+	Random levelGenRandom = new Random();
+	Random otherRandom = new Random();
 	private float[][] noise;
 	
 	private Level level;
@@ -53,7 +54,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 
         renderer = new ShapeRenderer();
         
-        level = Level.newLevel(r, 60, 50, 0.8f);
+        level = Level.newLevel(levelGenRandom, 60, 50, 0.8f);
         
 	    workers = new ArrayList<Worker>();
 		camps = new ArrayList<Camp>();
@@ -61,7 +62,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 				
         workerUpdater = new WorkerUpdater(camps, scanners, workers);
         campUpdater = new CampUpdater(workers, camps);
-        scannerUpdater = new ScannerUpdater(scanners);
+        scannerUpdater = new ScannerUpdater(otherRandom, level, scanners);
         
 		workerDisplay = new WorkerDisplay(workers);
 		campDisplay = new CampDisplay(camps);
