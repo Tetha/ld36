@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.subquark.ld36.camp.Camp;
+import org.subquark.ld36.digsite.DigSite;
 import org.subquark.ld36.scanner.Scanner;
 
 import com.badlogic.gdx.Gdx;
@@ -14,10 +15,12 @@ public class ShopInputHandler implements InputProcessor {
     private SelectedItem selectedItem = SelectedItem.Nothing;
     
     private final List<Camp> camps;
+    private final List<DigSite> digSites;
     private final List<Scanner> scanners;
     
-    public ShopInputHandler(List<Camp> camps, List<Scanner> scanners) {
+    public ShopInputHandler(List<Camp> camps, List<DigSite> digSites, List<Scanner> scanners) {
         this.camps = camps;
+        this.digSites = digSites;
         this.scanners = scanners;
     }
     
@@ -60,6 +63,10 @@ public class ShopInputHandler implements InputProcessor {
                     newCamp.y = clickY;
                     break;
                 case DigSite:
+                    DigSite newDig = new DigSite();
+                    digSites.add(newDig);
+                    newDig.x = clickX;
+                    newDig.y = clickY;
                     break;
                 case Nothing:
                     break;

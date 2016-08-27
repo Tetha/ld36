@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 public class CampDisplay {
     private static final ShapeRenderer renderer = new ShapeRenderer();
 
-    
     private final List<Camp> camps;
     
     public CampDisplay(List<Camp> camps) {

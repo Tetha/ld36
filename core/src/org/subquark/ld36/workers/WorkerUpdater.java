@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.subquark.ld36.camp.Camp;
+import org.subquark.ld36.digsite.DigSite;
 import org.subquark.ld36.scanner.Scanner;
 
 import com.badlogic.gdx.Gdx;
@@ -12,10 +13,12 @@ public class WorkerUpdater {
     private final List<Worker> workers;
     
     private final List<Camp> camps;
+    private final List<DigSite> digSites;
     private final List<Scanner> scanners;
     
-    public WorkerUpdater(List<Camp> camps, List<Scanner> scanners, List<Worker> workers) {
+    public WorkerUpdater(List<Camp> camps, List<DigSite> digSites, List<Scanner> scanners, List<Worker> workers) {
         this.camps = camps;
+        this.digSites = digSites;
         this.scanners = scanners;
         this.workers = workers;
     }
@@ -59,7 +62,18 @@ public class WorkerUpdater {
                         }                    }
                 }
             }
-
+            
+            for (DigSite ds : digSites) {
+                if (ds.x - DigSite.WIDTH / 2 <= w.x + Worker.WORKER_DIAMETER && w.x - Worker.WORKER_DIAMETER <= ds.x + DigSite.WIDTH / 2) {
+                    if (ds.y - DigSite.HEIGHT / 2 <= w.y + Worker.WORKER_DIAMETER && w.y - Worker.WORKER_DIAMETER <= ds.y + DigSite.HEIGHT / 2) {
+                        ds.workerPower = DigSite.POWER_FOR_ONE_WORKER;
+                        if(!removedAlready) {
+                            wIter.remove();
+                            removedAlready = true;
+                        }                    
+                    }
+                }
+            }
         }
     }
 }

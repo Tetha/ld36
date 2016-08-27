@@ -7,6 +7,9 @@ import java.util.Random;
 import org.subquark.ld36.camp.Camp;
 import org.subquark.ld36.camp.CampDisplay;
 import org.subquark.ld36.camp.CampUpdater;
+import org.subquark.ld36.digsite.DigSite;
+import org.subquark.ld36.digsite.DigSiteDisplay;
+import org.subquark.ld36.digsite.DigSiteUpdater;
 import org.subquark.ld36.level.Level;
 import org.subquark.ld36.level.LevelDisplay;
 import org.subquark.ld36.level.PerlinNoise;
@@ -40,10 +43,12 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	private List<Worker> workers;
 	private List<Camp> camps;
 	private List<Scanner> scanners;
+	private List<DigSite> digSites;
 	
 	private WorkerUpdater workerUpdater;
 	private CampUpdater campUpdater;
 	private ScannerUpdater scannerUpdater;
+	private DigSiteUpdater digSiteUpdater;
 	
 	private ShopInputHandler inputHandler;
 	
@@ -52,6 +57,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	private CampDisplay campDisplay;
 	private ScannerDisplay scannerDisplay;
 	private ShopDisplay shopDisplay;
+	private DigSiteDisplay digSiteDisplay;
 	
 	@Override
 	public void create () {
@@ -64,12 +70,14 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	    workers = new ArrayList<Worker>();
 		camps = new ArrayList<Camp>();
 		scanners = new ArrayList<Scanner>();
+		digSites = new ArrayList<DigSite>();
 				
-        workerUpdater = new WorkerUpdater(camps, scanners, workers);
+        workerUpdater = new WorkerUpdater(camps, digSites, scanners, workers);
         campUpdater = new CampUpdater(workers, camps);
         scannerUpdater = new ScannerUpdater(otherRandom, level, scanners);
+        digSiteUpdater = new DigSiteUpdater(level, digSites);
         
-        inputHandler = new ShopInputHandler(camps, scanners);
+        inputHandler = new ShopInputHandler(camps, digSites, scanners);
         Gdx.input.setInputProcessor(inputHandler);
         
 		workerDisplay = new WorkerDisplay(workers);
@@ -77,7 +85,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 		scannerDisplay = new ScannerDisplay(scanners);
 		levelDisplay = new LevelDisplay(level);
 		shopDisplay = new ShopDisplay(inputHandler);
-		
+		digSiteDisplay = new DigSiteDisplay(digSites);
 		
 		Worker testWorker = new Worker();
 		workers.add(testWorker);
@@ -110,13 +118,18 @@ public class LudumDare36Entry extends ApplicationAdapter {
 		
 		campUpdater.update();
 		scannerUpdater.update();
+		digSiteUpdater.update();
 		
 		//drawGrid();
 		
 		levelDisplay.update();
+		
         campDisplay.update();
         scannerDisplay.update();
+        digSiteDisplay.update();
+        
         workerDisplay.update();
+        
         shopDisplay.update();
 	}
 	
