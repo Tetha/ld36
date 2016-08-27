@@ -2,8 +2,6 @@ package org.subquark.ld36.level;
 
 import java.util.Random;
 
-import com.badlogic.gdx.Gdx;
-
 public class PerlinNoise {
     public static final float[][] generateWhiteNoise(Random r, int width, int height) {
         float[][] noise = new float[width][height];

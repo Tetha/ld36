@@ -1,7 +1,6 @@
 package org.subquark.ld36.workers;
 
 import java.util.Iterator;
-import java.util.List;
 
 import org.subquark.ld36.GameState;
 import org.subquark.ld36.camp.Camp;

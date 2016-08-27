@@ -1,7 +1,5 @@
 package org.subquark.ld36.scanner;
 
-import java.util.List;
-
 import org.subquark.ld36.GameState;
 import org.subquark.ld36.level.Level;
 

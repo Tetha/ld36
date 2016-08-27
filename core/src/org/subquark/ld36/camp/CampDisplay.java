@@ -1,7 +1,5 @@
 package org.subquark.ld36.camp;
 
-import java.util.List;
-
 import org.subquark.ld36.GameState;
 
 import com.badlogic.gdx.graphics.Color;

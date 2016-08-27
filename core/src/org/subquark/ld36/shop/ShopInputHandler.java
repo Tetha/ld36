@@ -1,6 +1,5 @@
 package org.subquark.ld36.shop;
 
-import java.util.List;
 import java.util.Objects;
 
 import org.subquark.ld36.GameState;

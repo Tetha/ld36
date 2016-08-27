@@ -1,6 +1,5 @@
 package org.subquark.ld36.scanner;
 
-import java.util.List;
 import java.util.Random;
 
 import org.subquark.ld36.GameState;

@@ -1,17 +1,14 @@
 package org.subquark.ld36;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import org.subquark.ld36.camp.Camp;
 import org.subquark.ld36.camp.CampDisplay;
 import org.subquark.ld36.camp.CampUpdater;
-import org.subquark.ld36.digsite.DigSite;
 import org.subquark.ld36.digsite.DigSiteDisplay;
 import org.subquark.ld36.digsite.DigSiteUpdater;
 import org.subquark.ld36.level.Level;
 import org.subquark.ld36.level.LevelDisplay;
-import org.subquark.ld36.level.PerlinNoise;
 import org.subquark.ld36.scanner.Scanner;
 import org.subquark.ld36.scanner.ScannerDisplay;
 import org.subquark.ld36.scanner.ScannerUpdater;
