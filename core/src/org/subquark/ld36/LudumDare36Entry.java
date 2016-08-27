@@ -3,6 +3,9 @@ package org.subquark.ld36;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.subquark.ld36.camp.Camp;
+import org.subquark.ld36.camp.CampDisplay;
+import org.subquark.ld36.camp.CampUpdater;
 import org.subquark.ld36.workers.Worker;
 import org.subquark.ld36.workers.WorkerDisplay;
 import org.subquark.ld36.workers.WorkerUpdater;
@@ -19,29 +22,37 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	Texture img;
 	
 	private List<Worker> workers;
+	private List<Camp> camps;
 	
 	private WorkerUpdater workerUpdater;
+	private CampUpdater campUpdater;
 	
 	private WorkerDisplay workerDisplay;
+	private CampDisplay campDisplay;
 	
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-		workers = new ArrayList<Worker>();
-		
-		Gdx.app.setLogLevel(Application.LOG_DEBUG);
-		
+        Gdx.app.setLogLevel(Application.LOG_DEBUG);
+
+	    workers = new ArrayList<Worker>();
+		camps = new ArrayList<Camp>();
+				
         workerUpdater = new WorkerUpdater(workers);
+        campUpdater = new CampUpdater(workers, camps);
         
 		workerDisplay = new WorkerDisplay(workers);
+		campDisplay = new CampDisplay(camps);
 		
 		Worker testWorker = new Worker();
+		workers.add(testWorker);
 		testWorker.x = 100;
 		testWorker.y = 100;
-		testWorker.lifetimeLeft = Worker.START_LIFETIME_MS;
+		testWorker.lifetimeLeft = Worker.START_LIFETIME;
 		
-		workers.add(testWorker);
+		Camp testCamp = new Camp();
+		camps.add(testCamp);
+		testCamp.x = 200;
+		testCamp.y = 300;
 	}
 
 	@Override
@@ -49,13 +60,14 @@ public class LudumDare36Entry extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		workerDisplay.update();
 		workerUpdater.update();
+		campUpdater.update();
+		
+        campDisplay.update();
+        workerDisplay.update();
 	}
 	
 	@Override
 	public void dispose () {
-		batch.dispose();
-		img.dispose();
 	}
 }

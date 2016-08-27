@@ -13,7 +13,7 @@ public class WorkerUpdater {
     }
     
     public void update() {
-        float deltaTime = Gdx.graphics.getDeltaTime() * 1000;
+        float deltaTime = Gdx.graphics.getDeltaTime();
         
         Iterator<Worker> wIter = workers.iterator();
         while (wIter.hasNext()) {

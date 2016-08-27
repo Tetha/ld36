@@ -1,12 +1,16 @@
 package org.subquark.ld36.workers;
 
 public class Worker {
-    public static final float START_LIFETIME_MS = 2000;
+    // s
+    public static final float START_LIFETIME = 2;
+
+    // pixels / s
+    public static final float STRAIGHT_VELOCITY = 75;
     
-    public float lifetimeLeft;
-    public int x;
-    public int y;
+    public float lifetimeLeft = START_LIFETIME;
+    public float x;
+    public float y;
     
-    public int velocityX;
-    public int velocityY;
+    public float velocityX;
+    public float velocityY;
 }
