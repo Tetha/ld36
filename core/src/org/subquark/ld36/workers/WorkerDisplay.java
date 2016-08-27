@@ -19,7 +19,7 @@ public class WorkerDisplay {
         renderer.begin(ShapeType.Filled);
         renderer.setColor(Color.BLUE);
         for (Worker w : workers) {
-            renderer.circle(w.x, w.y, 5);
+            renderer.circle(w.x, w.y, Worker.WORKER_DIAMETER);
         }
         renderer.end();
     }

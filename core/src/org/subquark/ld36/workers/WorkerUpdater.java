@@ -3,12 +3,20 @@ package org.subquark.ld36.workers;
 import java.util.Iterator;
 import java.util.List;
 
+import org.subquark.ld36.camp.Camp;
+import org.subquark.ld36.scanner.Scanner;
+
 import com.badlogic.gdx.Gdx;
 
 public class WorkerUpdater {
     private final List<Worker> workers;
     
-    public WorkerUpdater(List<Worker> workers) {
+    private final List<Camp> camps;
+    private final List<Scanner> scanners;
+    
+    public WorkerUpdater(List<Camp> camps, List<Scanner> scanners, List<Worker> workers) {
+        this.camps = camps;
+        this.scanners = scanners;
         this.workers = workers;
     }
     
@@ -26,6 +34,24 @@ public class WorkerUpdater {
             
             w.x += w.velocityX * deltaTime;
             w.y += w.velocityY * deltaTime;
+            
+            for (Camp c : camps) {
+                if (c.x - Camp.CAMP_WIDTH / 2 <= w.x - Worker.WORKER_DIAMETER && w.x - Worker.WORKER_DIAMETER <= c.x + Camp.CAMP_WIDTH / 2) {
+                    if (c.y - Camp.CAMP_HEIGHT / 2 <= w.y - Worker.WORKER_DIAMETER && w.y - Worker.WORKER_DIAMETER <= c.y + Camp.CAMP_HEIGHT / 2) {
+                        wIter.remove();
+                    }
+                }
+            }
+            
+            for (Scanner s : scanners) {
+                if (s.x - Scanner.SCANNER_WIDTH / 2 <= w.x + Worker.WORKER_DIAMETER && w.x - Worker.WORKER_DIAMETER <= s.x + Scanner.SCANNER_WIDTH / 2) {
+                    if (s.y - Scanner.SCANNER_HEIGHT / 2 <= w.y + Worker.WORKER_DIAMETER && w.y - Worker.WORKER_DIAMETER <= s.y + Scanner.SCANNER_HEIGHT / 2) {
+                        s.workerPower = Scanner.POWER_FOR_ONE_WORKER;
+                        wIter.remove();
+                    }
+                }
+            }
+
         }
     }
 }
