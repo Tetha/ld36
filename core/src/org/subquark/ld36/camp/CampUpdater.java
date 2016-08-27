@@ -22,30 +22,57 @@ public class CampUpdater {
             if (c.cooldown <= 0) {
                 c.cooldown = Camp.CAMP_COOLDOWN;
                 
-                Worker w1 = new Worker();
-                workers.add(w1);
-                w1.x = c.x - Camp.CAMP_WIDTH / 2 - 20;
-                w1.y = c.y;
-                w1.velocityX = - Worker.STRAIGHT_VELOCITY;
+                Worker wEast = new Worker();
+                workers.add(wEast);
+                wEast.x = c.x - Camp.CAMP_WIDTH / 2 - 20;
+                wEast.y = c.y;
+                wEast.velocityX = - Worker.STRAIGHT_VELOCITY;
                 
-                Gdx.app.debug("camp_updater", "put worker at : " + w1.x + "/" + w1.y);
-                Worker w2 = new Worker();
-                workers.add(w2);
-                w2.x = c.x + Camp.CAMP_WIDTH / 2 + 20;
-                w2.y = c.y;
-                w2.velocityX = Worker.STRAIGHT_VELOCITY;
+                Worker wWest = new Worker();
+                workers.add(wWest);
+                wWest.x = c.x + Camp.CAMP_WIDTH / 2 + 20;
+                wWest.y = c.y;
+                wWest.velocityX = Worker.STRAIGHT_VELOCITY;
                 
-                Worker w3 = new Worker();
-                workers.add(w3);
-                w3.x = c.x;
-                w3.y = c.y - Camp.CAMP_HEIGHT / 2 - 20;
-                w3.velocityY = - Worker.STRAIGHT_VELOCITY;
+                Worker wNorth = new Worker();
+                workers.add(wNorth);
+                wNorth.x = c.x;
+                wNorth.y = c.y - Camp.CAMP_HEIGHT / 2 - 20;
+                wNorth.velocityY = - Worker.STRAIGHT_VELOCITY;
 
-                Worker w4 = new Worker();
-                workers.add(w4);
-                w4.x = c.x;
-                w4.y = c.y + Camp.CAMP_HEIGHT / 2 + 20;
-                w4.velocityY = Worker.STRAIGHT_VELOCITY;
+                Worker wSouth = new Worker();
+                workers.add(wSouth);
+                wSouth.x = c.x;
+                wSouth.y = c.y + Camp.CAMP_HEIGHT / 2 + 20;
+                wSouth.velocityY = Worker.STRAIGHT_VELOCITY;
+
+                Worker wNorthEast = new Worker();
+                workers.add(wNorthEast);
+                wNorthEast.x = wEast.x;
+                wNorthEast.y = wNorth.y;
+                wNorthEast.velocityX = wEast.velocityX;
+                wNorthEast.velocityY = wNorth.velocityY;
+                
+                Worker wNorthWest = new Worker();
+                workers.add(wNorthWest);
+                wNorthWest.x = wWest.x;
+                wNorthWest.y = wNorth.y;
+                wNorthWest.velocityX = wWest.velocityX;
+                wNorthWest.velocityY = wNorth.velocityY;
+
+                Worker wSouthEast = new Worker();
+                workers.add(wSouthEast);
+                wSouthEast.x = wEast.x;
+                wSouthEast.y = wSouth.y;
+                wSouthEast.velocityX = wEast.velocityX;
+                wSouthEast.velocityY = wSouth.velocityY;
+                
+                Worker wSouthWest = new Worker();
+                workers.add(wSouthWest);
+                wSouthWest.x = wWest.x;
+                wSouthWest.y = wSouth.y;
+                wSouthWest.velocityX = wWest.velocityX;
+                wSouthWest.velocityY = wSouth.velocityY;
 
             }
         }

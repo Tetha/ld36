@@ -6,6 +6,7 @@ public class Worker {
 
     // pixels / s
     public static final float STRAIGHT_VELOCITY = 75;
+    public static final float DIAGONAL_VELOCITY = STRAIGHT_VELOCITY / 1.37f; // just about sqrt(2)
     
     public static final float WORKER_DIAMETER = 5;
     
