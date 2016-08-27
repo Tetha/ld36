@@ -1,7 +1,6 @@
 package org.subquark.ld36;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import org.subquark.ld36.camp.Camp;
@@ -39,13 +38,8 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	Random otherRandom = new Random();
 	private float[][] noise;
 	
-	private Level level;
-	private List<Worker> workers;
-	private List<Camp> camps;
-	private List<Scanner> scanners;
-	private List<DigSite> digSites;
-	
-	private WorkerUpdater workerUpdater;
+	private GameState gameState = new GameState();
+    private WorkerUpdater workerUpdater;
 	private CampUpdater campUpdater;
 	private ScannerUpdater scannerUpdater;
 	private DigSiteUpdater digSiteUpdater;
@@ -65,46 +59,41 @@ public class LudumDare36Entry extends ApplicationAdapter {
 
         renderer = new ShapeRenderer();
         
-        level = Level.newLevel(levelGenRandom, Level.WIDTH_TILES, Level.HEIGHT_TILES, 0.8f);
-        
-	    workers = new ArrayList<Worker>();
-		camps = new ArrayList<Camp>();
-		scanners = new ArrayList<Scanner>();
-		digSites = new ArrayList<DigSite>();
+        gameState.level = Level.newLevel(levelGenRandom, Level.WIDTH_TILES, Level.HEIGHT_TILES, 0.8f);
 				
-        workerUpdater = new WorkerUpdater(camps, digSites, scanners, workers);
-        campUpdater = new CampUpdater(workers, camps);
-        scannerUpdater = new ScannerUpdater(otherRandom, level, scanners);
-        digSiteUpdater = new DigSiteUpdater(level, digSites);
+        workerUpdater = new WorkerUpdater(gameState);
+        campUpdater = new CampUpdater(gameState);
+        scannerUpdater = new ScannerUpdater(otherRandom, gameState);
+        digSiteUpdater = new DigSiteUpdater(gameState);
         
-        inputHandler = new ShopInputHandler(camps, digSites, scanners);
+        inputHandler = new ShopInputHandler(gameState);
         Gdx.input.setInputProcessor(inputHandler);
         
-		workerDisplay = new WorkerDisplay(workers);
-		campDisplay = new CampDisplay(camps);
-		scannerDisplay = new ScannerDisplay(scanners);
-		levelDisplay = new LevelDisplay(level);
+		workerDisplay = new WorkerDisplay(gameState);
+		campDisplay = new CampDisplay(gameState);
+		scannerDisplay = new ScannerDisplay(gameState);
+		levelDisplay = new LevelDisplay(gameState);
 		shopDisplay = new ShopDisplay(inputHandler);
-		digSiteDisplay = new DigSiteDisplay(digSites);
+		digSiteDisplay = new DigSiteDisplay(gameState);
 		
 		Worker testWorker = new Worker();
-		workers.add(testWorker);
+		gameState.workers.add(testWorker);
 		testWorker.x = 100;
 		testWorker.y = 100;
 		testWorker.lifetimeLeft = Worker.START_LIFETIME;
 		
 		Camp testCamp = new Camp();
-		camps.add(testCamp);
+		gameState.camps.add(testCamp);
 		testCamp.x = 200;
 		testCamp.y = 300;
 		
 		Scanner testScanner = new Scanner();
-		scanners.add(testScanner);
+		gameState.scanners.add(testScanner);
 		testScanner.x = 200;
 		testScanner.y = 200;
 		
         Scanner testScanner2 = new Scanner();
-        scanners.add(testScanner2);
+        gameState.scanners.add(testScanner2);
         testScanner2.x = 400;
         testScanner2.y = 300;
 	}

@@ -2,6 +2,7 @@ package org.subquark.ld36.digsite;
 
 import java.util.List;
 
+import org.subquark.ld36.GameState;
 import org.subquark.ld36.level.Level;
 
 import com.badlogic.gdx.graphics.Color;
@@ -12,16 +13,16 @@ public class DigSiteDisplay {
     private static final ShapeRenderer blockRenderer = new ShapeRenderer();
     private static final ShapeRenderer lineRenderer = new ShapeRenderer();
     
-    private final List<DigSite> digSites;
+    private final GameState gameState;
     
-    public DigSiteDisplay(List<DigSite> digSites) {
-        this.digSites = digSites;
+    public DigSiteDisplay(GameState gameState) {
+        this.gameState = gameState;
     }
     
     public void update() {
         blockRenderer.begin(ShapeType.Filled);
         lineRenderer.begin(ShapeType.Line);
-        for (DigSite ds : digSites) {
+        for (DigSite ds : gameState.digSites) {
             if (ds.workerPower > 0) {
                 blockRenderer.setColor(Color.GRAY);
             } else {

@@ -3,24 +3,23 @@ package org.subquark.ld36.scanner;
 import java.util.List;
 import java.util.Random;
 
+import org.subquark.ld36.GameState;
 import org.subquark.ld36.level.Level;
 
 import com.badlogic.gdx.Gdx;
 
 public class ScannerUpdater {
-    private final Level level;
-    private final List<Scanner> scanners;
-    private Random r;
+    private final Random r;
+    private final GameState gameState;
     
-    public ScannerUpdater(Random r, Level level, List<Scanner> scanners) {
-        this.scanners = scanners;
-        this.level = level;
+    public ScannerUpdater(Random r, GameState gameState) {
         this.r = r;
+        this.gameState = gameState;
     }
 
     public void update() {
         float deltaTime = Gdx.graphics.getDeltaTime();
-        for (Scanner s : scanners) {
+        for (Scanner s : gameState.scanners) {
             if (s.cooldown > 0) {
                 s.cooldown -= deltaTime;
             }
@@ -38,7 +37,7 @@ public class ScannerUpdater {
                 s.scanningX = scannedTileX * Level.TILE_PIXELS;
                 s.scanningY = scannedTileY * Level.TILE_PIXELS;
                 
-                level.markScanned(scannedTileX, scannedTileY);
+                gameState.level.markScanned(scannedTileX, scannedTileY);
             }
         }
     }

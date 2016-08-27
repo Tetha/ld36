@@ -2,22 +2,21 @@ package org.subquark.ld36.digsite;
 
 import java.util.List;
 
+import org.subquark.ld36.GameState;
 import org.subquark.ld36.level.Level;
 
 import com.badlogic.gdx.Gdx;
 
 public class DigSiteUpdater {
-    private final Level level;
-    private final List<DigSite> digSites;
+    private final GameState gameState;
     
-    public DigSiteUpdater(Level level, List<DigSite> digSites) {
-        this.level = level;
-        this.digSites = digSites;
+    public DigSiteUpdater(GameState gameState) {
+        this.gameState = gameState;
     }
     
     public void update() {
         float deltaTime = Gdx.graphics.getDeltaTime();
-        for (DigSite ds : digSites) {
+        for (DigSite ds : gameState.digSites) {
             if (ds.workerPower <= 0) continue;
             
             ds.workerPower -= deltaTime;
@@ -30,7 +29,7 @@ public class DigSiteUpdater {
                 
                 for ( int x = positionXInTile - DigSite.MINING_RANGE_RADIUS; x < positionXInTile + DigSite.MINING_RANGE_RADIUS; x++ ) {
                     for ( int y = positionYInTile - DigSite.MINING_RANGE_RADIUS; y < positionYInTile + DigSite.MINING_RANGE_RADIUS; y++ ) {
-                        if (level.hasVisibleTreasure(x, y)) {
+                        if (gameState.level.hasVisibleTreasure(x, y)) {
                             Gdx.app.log("digsite updater", "MONEY!");
                         }
                     }

@@ -3,6 +3,7 @@ package org.subquark.ld36.shop;
 import java.util.List;
 import java.util.Objects;
 
+import org.subquark.ld36.GameState;
 import org.subquark.ld36.camp.Camp;
 import org.subquark.ld36.digsite.DigSite;
 import org.subquark.ld36.scanner.Scanner;
@@ -14,14 +15,10 @@ public class ShopInputHandler implements InputProcessor {
     public enum SelectedItem { Camp, Scanner, DigSite, Research, Nothing }
     private SelectedItem selectedItem = SelectedItem.Nothing;
     
-    private final List<Camp> camps;
-    private final List<DigSite> digSites;
-    private final List<Scanner> scanners;
+    private GameState gameState;
     
-    public ShopInputHandler(List<Camp> camps, List<DigSite> digSites, List<Scanner> scanners) {
-        this.camps = camps;
-        this.digSites = digSites;
-        this.scanners = scanners;
+    public ShopInputHandler(GameState gameState) {
+        this.gameState = gameState;
     }
     
     public SelectedItem getSelectedItem() {
@@ -58,13 +55,13 @@ public class ShopInputHandler implements InputProcessor {
             switch(selectedItem) {
                 case Camp:
                     Camp newCamp = new Camp();
-                    camps.add(newCamp);
+                    gameState.camps.add(newCamp);
                     newCamp.x = clickX;
                     newCamp.y = clickY;
                     break;
                 case DigSite:
                     DigSite newDig = new DigSite();
-                    digSites.add(newDig);
+                    gameState.digSites.add(newDig);
                     newDig.x = clickX;
                     newDig.y = clickY;
                     break;
@@ -74,7 +71,7 @@ public class ShopInputHandler implements InputProcessor {
                     break;
                 case Scanner:
                     Scanner newScanner = new Scanner();
-                    scanners.add(newScanner);
+                    gameState.scanners.add(newScanner);
                     newScanner.x = clickX;
                     newScanner.y = clickY;
                     

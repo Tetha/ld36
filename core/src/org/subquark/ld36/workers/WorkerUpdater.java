@@ -3,6 +3,7 @@ package org.subquark.ld36.workers;
 import java.util.Iterator;
 import java.util.List;
 
+import org.subquark.ld36.GameState;
 import org.subquark.ld36.camp.Camp;
 import org.subquark.ld36.digsite.DigSite;
 import org.subquark.ld36.scanner.Scanner;
@@ -10,24 +11,17 @@ import org.subquark.ld36.scanner.Scanner;
 import com.badlogic.gdx.Gdx;
 
 public class WorkerUpdater {
-    private final List<Worker> workers;
+    private final GameState gameState;
     
-    private final List<Camp> camps;
-    private final List<DigSite> digSites;
-    private final List<Scanner> scanners;
-    
-    public WorkerUpdater(List<Camp> camps, List<DigSite> digSites, List<Scanner> scanners, List<Worker> workers) {
-        this.camps = camps;
-        this.digSites = digSites;
-        this.scanners = scanners;
-        this.workers = workers;
+    public WorkerUpdater(GameState gameState) {
+        this.gameState = gameState;
     }
     
     public void update() {
         float deltaTime = Gdx.graphics.getDeltaTime();
         
         boolean removedAlready = false;
-        Iterator<Worker> wIter = workers.iterator();
+        Iterator<Worker> wIter = gameState.workers.iterator();
         while (wIter.hasNext()) {
             Worker w = wIter.next();
             w.lifetimeLeft -= deltaTime;
@@ -41,7 +35,7 @@ public class WorkerUpdater {
             w.x += w.velocityX * deltaTime;
             w.y += w.velocityY * deltaTime;
             
-            for (Camp c : camps) {
+            for (Camp c : gameState.camps) {
                 if (c.x - Camp.CAMP_WIDTH / 2 <= w.x - Worker.WORKER_DIAMETER && w.x - Worker.WORKER_DIAMETER <= c.x + Camp.CAMP_WIDTH / 2) {
                     if (c.y - Camp.CAMP_HEIGHT / 2 <= w.y - Worker.WORKER_DIAMETER && w.y - Worker.WORKER_DIAMETER <= c.y + Camp.CAMP_HEIGHT / 2) {
                         if(!removedAlready) {
@@ -52,7 +46,7 @@ public class WorkerUpdater {
                 }
             }
             
-            for (Scanner s : scanners) {
+            for (Scanner s : gameState.scanners) {
                 if (s.x - Scanner.SCANNER_WIDTH / 2 <= w.x + Worker.WORKER_DIAMETER && w.x - Worker.WORKER_DIAMETER <= s.x + Scanner.SCANNER_WIDTH / 2) {
                     if (s.y - Scanner.SCANNER_HEIGHT / 2 <= w.y + Worker.WORKER_DIAMETER && w.y - Worker.WORKER_DIAMETER <= s.y + Scanner.SCANNER_HEIGHT / 2) {
                         s.workerPower = Scanner.POWER_FOR_ONE_WORKER;
@@ -63,7 +57,7 @@ public class WorkerUpdater {
                 }
             }
             
-            for (DigSite ds : digSites) {
+            for (DigSite ds : gameState.digSites) {
                 if (ds.x - DigSite.WIDTH / 2 <= w.x + Worker.WORKER_DIAMETER && w.x - Worker.WORKER_DIAMETER <= ds.x + DigSite.WIDTH / 2) {
                     if (ds.y - DigSite.HEIGHT / 2 <= w.y + Worker.WORKER_DIAMETER && w.y - Worker.WORKER_DIAMETER <= ds.y + DigSite.HEIGHT / 2) {
                         ds.workerPower = DigSite.POWER_FOR_ONE_WORKER;

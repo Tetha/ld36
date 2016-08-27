@@ -2,6 +2,7 @@ package org.subquark.ld36.scanner;
 
 import java.util.List;
 
+import org.subquark.ld36.GameState;
 import org.subquark.ld36.level.Level;
 
 import com.badlogic.gdx.graphics.Color;
@@ -12,16 +13,16 @@ public class ScannerDisplay {
     private static final ShapeRenderer blockRenderer = new ShapeRenderer();
     private static final ShapeRenderer lineRenderer = new ShapeRenderer();
     
-    private final List<Scanner> scanners;
+    private final GameState gameState;
     
-    public ScannerDisplay(List<Scanner> scanners) {
-        this.scanners = scanners;
+    public ScannerDisplay(GameState gameState) {
+        this.gameState = gameState;
     }
     
     public void update() {
         blockRenderer.begin(ShapeType.Filled);
         lineRenderer.begin(ShapeType.Line);
-        for (Scanner s : scanners) {
+        for (Scanner s : gameState.scanners) {
             if (s.workerPower > 0) {
                 blockRenderer.setColor(Color.MAGENTA);
             } else {
