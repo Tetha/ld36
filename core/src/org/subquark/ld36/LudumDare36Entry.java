@@ -54,10 +54,14 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	private TopLevelDisplay artifactCountDisplay;
 	private ResearchCampDisplay researchCampDisplay;
 	
+	private Textures textures;
+	
 	@Override
 	public void create () {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
+        textures = new Textures();
+        
         renderer = new ShapeRenderer();
         
         gameState.level = Level.newLevel(levelGenRandom, Level.WIDTH_TILES, Level.HEIGHT_TILES, 0.8f);
@@ -71,9 +75,9 @@ public class LudumDare36Entry extends ApplicationAdapter {
         inputHandler = new InputHandler(gameState);
         Gdx.input.setInputProcessor(inputHandler);
         
-		workerDisplay = new WorkerDisplay(gameState);
-		campDisplay = new CampDisplay(gameState);
-		scannerDisplay = new ScannerDisplay(gameState);
+		workerDisplay = new WorkerDisplay(textures, gameState);
+		campDisplay = new CampDisplay(textures, gameState);
+		scannerDisplay = new ScannerDisplay(textures, gameState);
 		levelDisplay = new LevelDisplay(gameState);
 		shopDisplay = new ShopDisplay(inputHandler);
 		digSiteDisplay = new DigSiteDisplay(gameState);
@@ -147,5 +151,6 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	}
 	@Override
 	public void dispose () {
+	    textures.dispose();
 	}
 }

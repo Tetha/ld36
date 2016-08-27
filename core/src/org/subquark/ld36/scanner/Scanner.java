@@ -1,7 +1,7 @@
 package org.subquark.ld36.scanner;
 
 public class Scanner {
-    public static final int SCANNER_WIDTH = 20;
+    public static final int SCANNER_WIDTH = 30;
     public static final int SCANNER_HEIGHT = 20;
     public static final float POWER_FOR_ONE_WORKER = 1;
     public static final int SCAN_RADIUS_PIXEL = 100;
