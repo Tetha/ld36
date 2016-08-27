@@ -20,7 +20,7 @@ public class ArtifactCountDisplay {
     
     public void update() {
         batch.begin();
-        font.draw(batch, "Artifacts: " + gameState.artifacts, 10, 460);
+        font.draw(batch, "Total Artifacts: " + gameState.artifacts + " / Unresearched Artifacts: " + gameState.unresearchedArtifacts(), 10, 460);
         batch.end();
     }
 }

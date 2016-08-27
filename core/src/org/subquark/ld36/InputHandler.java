@@ -1,22 +1,22 @@
-package org.subquark.ld36.shop;
+package org.subquark.ld36;
 
 import java.util.Objects;
 
-import org.subquark.ld36.GameState;
 import org.subquark.ld36.camp.Camp;
 import org.subquark.ld36.digsite.DigSite;
 import org.subquark.ld36.scanner.Scanner;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 
-public class ShopInputHandler implements InputProcessor {
+public class InputHandler implements InputProcessor {
     public enum SelectedItem { Camp, Scanner, DigSite, Research, Nothing }
     private SelectedItem selectedItem = SelectedItem.Nothing;
     
     private GameState gameState;
     
-    public ShopInputHandler(GameState gameState) {
+    public InputHandler(GameState gameState) {
         this.gameState = gameState;
     }
     
@@ -26,11 +26,20 @@ public class ShopInputHandler implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
+        if (keycode == Input.Keys.F3) {
+            gameState.debugging = true;
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean keyUp(int keycode) {
+        if (keycode == Input.Keys.F3) {
+            gameState.debugging = false;
+            return true;
+        }
+
         return false;
     }
 

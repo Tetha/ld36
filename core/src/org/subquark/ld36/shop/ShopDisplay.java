@@ -1,5 +1,7 @@
 package org.subquark.ld36.shop;
 
+import org.subquark.ld36.InputHandler;
+
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,9 +13,9 @@ public class ShopDisplay {
     private static final ShapeRenderer renderer = new ShapeRenderer();
     private static final BitmapFont font = new BitmapFont();
     
-    private final ShopInputHandler inputHandler;
+    private final InputHandler inputHandler;
     
-    public ShopDisplay(ShopInputHandler inputHandler) {
+    public ShopDisplay(InputHandler inputHandler) {
         this.inputHandler = inputHandler;
     }
     

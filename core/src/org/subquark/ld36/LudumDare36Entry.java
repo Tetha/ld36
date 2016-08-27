@@ -14,7 +14,6 @@ import org.subquark.ld36.scanner.ScannerDisplay;
 import org.subquark.ld36.scanner.ScannerUpdater;
 import org.subquark.ld36.shop.ArtifactCountDisplay;
 import org.subquark.ld36.shop.ShopDisplay;
-import org.subquark.ld36.shop.ShopInputHandler;
 import org.subquark.ld36.workers.Worker;
 import org.subquark.ld36.workers.WorkerDisplay;
 import org.subquark.ld36.workers.WorkerUpdater;
@@ -41,7 +40,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	private ScannerUpdater scannerUpdater;
 	private DigSiteUpdater digSiteUpdater;
 	
-	private ShopInputHandler inputHandler;
+	private InputHandler inputHandler;
 	
 	private LevelDisplay levelDisplay;
 	private WorkerDisplay workerDisplay;
@@ -64,7 +63,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
         scannerUpdater = new ScannerUpdater(otherRandom, gameState);
         digSiteUpdater = new DigSiteUpdater(gameState);
         
-        inputHandler = new ShopInputHandler(gameState);
+        inputHandler = new InputHandler(gameState);
         Gdx.input.setInputProcessor(inputHandler);
         
 		workerDisplay = new WorkerDisplay(gameState);
@@ -108,9 +107,11 @@ public class LudumDare36Entry extends ApplicationAdapter {
 		scannerUpdater.update();
 		digSiteUpdater.update();
 		
-		levelDisplay.update();
-		//drawGrid();
-		
+		if (gameState.debugging) {
+		    drawGrid();
+		} else {
+		    levelDisplay.update();
+		}
         campDisplay.update();
         scannerDisplay.update();
         digSiteDisplay.update();

@@ -17,4 +17,10 @@ public class GameState {
     public List<DigSite> digSites = new ArrayList<DigSite>();
     
     public int artifacts = 0;
+    public int researchedArtifacts = 0;
+    public boolean debugging;
+    
+    public int unresearchedArtifacts() {
+        return artifacts - researchedArtifacts;
+    }
 }
