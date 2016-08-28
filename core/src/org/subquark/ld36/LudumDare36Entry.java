@@ -17,6 +17,8 @@ import org.subquark.ld36.level.Level;
 import org.subquark.ld36.level.LevelDisplay;
 import org.subquark.ld36.menu.MenuDisplay;
 import org.subquark.ld36.menu.MenuInputHandler;
+import org.subquark.ld36.particels.ParticleDisplay;
+import org.subquark.ld36.particels.ParticleUpdater;
 import org.subquark.ld36.research_camp.ResearchCampDisplay;
 import org.subquark.ld36.research_camp.ResearchCampUpdater;
 import org.subquark.ld36.scanner.Scanner;
@@ -67,6 +69,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	private ResearchCampUpdater researchCampUpdater;
 	private TimeLimitUpdater timeLimitUpdater;
 	private BuildCooldownUpdater buildCooldownUpdater;
+	private ParticleUpdater particleUpdater;
 	
 	private InputHandler inputHandler;
 	private InputProcessor endGameInputHandler;
@@ -82,6 +85,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	private TopLevelDisplay artifactCountDisplay;
 	private ResearchCampDisplay researchCampDisplay;
 	private VictoryBannerDisplay victoryBannerDisplay;
+	private ParticleDisplay particleDisplay;
 	
 	private Textures textures;
 	
@@ -101,10 +105,11 @@ public class LudumDare36Entry extends ApplicationAdapter {
         workerUpdater = new WorkerUpdater(gameState);
         campUpdater = new CampUpdater(gameState);
         scannerUpdater = new ScannerUpdater(otherRandom, gameState);
-        digSiteUpdater = new DigSiteUpdater(gameState);
+        digSiteUpdater = new DigSiteUpdater(otherRandom, gameState);
         researchCampUpdater = new ResearchCampUpdater(gameState);
         timeLimitUpdater = new TimeLimitUpdater(gameState);
         buildCooldownUpdater = new BuildCooldownUpdater(gameState);
+        particleUpdater = new ParticleUpdater(gameState);
         
 		workerDisplay = new WorkerDisplay(textures, gameState);
 		campDisplay = new CampDisplay(textures, gameState);
@@ -115,6 +120,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 		artifactCountDisplay = new TopLevelDisplay(textures, gameState);
 		researchCampDisplay = new ResearchCampDisplay(textures, gameState);
 		victoryBannerDisplay = new VictoryBannerDisplay(textures, gameState);
+		particleDisplay = new ParticleDisplay(textures, gameState);
 		
 		menuDisplay = new MenuDisplay(textures, gameState, menuInputHandler);
 
@@ -162,6 +168,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
                 researchCampUpdater.update();
                 timeLimitUpdater.update();
                 buildCooldownUpdater.update();
+                particleUpdater.update();
                 
                 if (gameState.debugging) {
                     drawGrid();
@@ -174,6 +181,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
                 researchCampDisplay.update();
                 
                 workerDisplay.update();
+                particleDisplay.update();
                 
                 shopDisplay.update();
                 artifactCountDisplay.update();

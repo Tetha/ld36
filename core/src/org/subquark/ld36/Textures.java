@@ -52,6 +52,7 @@ public class Textures {
     public Texture timePanel = new Texture(Gdx.files.internal("time_panel.png"));
     public Texture treasurePanel = new Texture(Gdx.files.internal("treasure_panel.png"));
     
+    public Texture logo = new Texture(Gdx.files.internal("logo.png")); 
     public void dispose() {
         worker.dispose();
         camp.dispose();
@@ -94,5 +95,7 @@ public class Textures {
         playButton.dispose();
         timePanel.dispose();
         treasurePanel.dispose();
+        
+        logo.dispose();
     }
 }

@@ -26,6 +26,7 @@ public class MenuDisplay {
     }
     public void update() {
         batch.begin();
+        batch.draw(textures.logo, 50, 240);
         batch.draw(textures.treasurePanel, 50, 180);
         
         if (inputHandler.selectedTreasure == TreasureDensity.LOTS) {

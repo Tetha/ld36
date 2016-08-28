@@ -10,6 +10,7 @@ import org.subquark.ld36.goals.BuildCooldownUpdater;
 import org.subquark.ld36.goals.TimeConstraint;
 import org.subquark.ld36.goals.TreasureDensity;
 import org.subquark.ld36.level.Level;
+import org.subquark.ld36.particels.Particle;
 import org.subquark.ld36.research_camp.ResearchCamp;
 import org.subquark.ld36.scanner.Scanner;
 import org.subquark.ld36.workers.Worker;
@@ -20,6 +21,7 @@ public class GameState {
     public List<Camp> camps = new ArrayList<Camp>();
     public List<Scanner> scanners = new ArrayList<Scanner>();
     public List<DigSite> digSites = new ArrayList<DigSite>();
+    public List<Particle> particles = new ArrayList<Particle>();
     public List<ResearchCamp> researchCamps = new ArrayList<ResearchCamp>();
     
     public int artifacts = 0;
@@ -30,6 +32,7 @@ public class GameState {
     public float timeLimit;
     public float timeSpent;
     public float buildCooldown = 1;
+    
     
     public int unresearchedArtifacts() {
         return artifacts - researchedArtifacts;
@@ -52,6 +55,7 @@ public class GameState {
         scanners.clear();
         digSites.clear();
         researchCamps.clear();
+        particles.clear();
         
         artifacts = 0;
         researchedArtifacts = 0;

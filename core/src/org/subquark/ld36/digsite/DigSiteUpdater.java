@@ -1,14 +1,19 @@
 package org.subquark.ld36.digsite;
 
+import java.util.Random;
+
 import org.subquark.ld36.GameState;
 import org.subquark.ld36.level.Level;
+import org.subquark.ld36.particels.Particle;
 
 import com.badlogic.gdx.Gdx;
 
 public class DigSiteUpdater {
     private final GameState gameState;
+    private final Random otherRandom;
     
-    public DigSiteUpdater(GameState gameState) {
+    public DigSiteUpdater(Random otherRandom, GameState gameState) {
+        this.otherRandom = otherRandom;
         this.gameState = gameState;
     }
     
@@ -27,6 +32,15 @@ public class DigSiteUpdater {
                     for (int yO = 0; yO < ds.totalMiningDiameterVerticallyTiles(); yO++) {
                         if (gameState.level.hasVisibleTreasure(ds.smallestXMinedTiles() + xO, ds.smallestYMinedTiles() + yO)) {
                             gameState.artifacts += 1;
+                            
+                            Particle p = new Particle();
+                            gameState.particles.add(p);
+                            p.x = ds.x;
+                            p.y = ds.y - 5;
+                            p.velocityY = 100f + otherRandom.nextInt(40) - 20;
+                            p.velocityX = otherRandom.nextInt(80) - 40;
+                            p.energyLeft = 0.5f + otherRandom.nextInt(20) / 100f;
+                            p.type = Particle.ParticleType.MONEY;
                         }
                     }
                 }
