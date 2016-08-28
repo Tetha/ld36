@@ -90,7 +90,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 		workerDisplay = new WorkerDisplay(textures, gameState);
 		campDisplay = new CampDisplay(textures, gameState);
 		scannerDisplay = new ScannerDisplay(textures, gameState);
-		levelDisplay = new LevelDisplay(gameState);
+		levelDisplay = new LevelDisplay(textures, gameState);
 		shopDisplay = new ShopDisplay(inputHandler);
 		digSiteDisplay = new DigSiteDisplay(textures, gameState);
 		artifactCountDisplay = new TopLevelDisplay(gameState);

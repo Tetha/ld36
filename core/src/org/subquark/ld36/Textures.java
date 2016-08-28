@@ -8,11 +8,15 @@ public class Textures {
     public Texture camp = new Texture(Gdx.files.internal("camp.png"));
     public Texture scanner = new Texture(Gdx.files.internal("prospector_camp.png"));
     public Texture digger = new Texture(Gdx.files.internal("digger_camp.png"));
+    public Texture sand = new Texture(Gdx.files.internal("sand.png"));
+    public Texture treasure = new Texture(Gdx.files.internal("treasure.png"));
     
     public void dispose() {
         worker.dispose();
         camp.dispose();
         scanner.dispose();
         digger.dispose();
+        sand.dispose();
+        treasure.dispose();
     }
 }
