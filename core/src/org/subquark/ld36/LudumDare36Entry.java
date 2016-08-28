@@ -7,9 +7,11 @@ import org.subquark.ld36.camp.CampDisplay;
 import org.subquark.ld36.camp.CampUpdater;
 import org.subquark.ld36.digsite.DigSiteDisplay;
 import org.subquark.ld36.digsite.DigSiteUpdater;
+import org.subquark.ld36.goals.EndGameInputHandler;
 import org.subquark.ld36.goals.TimeConstraint;
 import org.subquark.ld36.goals.TimeLimitUpdater;
 import org.subquark.ld36.goals.TreasureDensity;
+import org.subquark.ld36.goals.VictoryBannerDisplay;
 import org.subquark.ld36.level.Level;
 import org.subquark.ld36.level.LevelDisplay;
 import org.subquark.ld36.menu.MenuDisplay;
@@ -28,6 +30,7 @@ import org.subquark.ld36.workers.WorkerUpdater;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -64,6 +67,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	private TimeLimitUpdater timeLimitUpdater;
 	
 	private InputHandler inputHandler;
+	private InputProcessor endGameInputHandler;
 	
 	private MenuDisplay menuDisplay;
 	private LevelDisplay levelDisplay;
@@ -74,6 +78,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	private DigSiteDisplay digSiteDisplay;
 	private TopLevelDisplay artifactCountDisplay;
 	private ResearchCampDisplay researchCampDisplay;
+	private VictoryBannerDisplay victoryBannerDisplay;
 	
 	private Textures textures;
 	
@@ -84,9 +89,10 @@ public class LudumDare36Entry extends ApplicationAdapter {
         
         renderer = new ShapeRenderer();
         camera = new PerspectiveCamera();
-        viewport = new StretchViewport(640, 480);
+        viewport = new FitViewport(640, 480);
 				
         inputHandler = new InputHandler(this, viewport, gameState);
+        endGameInputHandler = new EndGameInputHandler(this);
         
         workerUpdater = new WorkerUpdater(gameState);
         campUpdater = new CampUpdater(gameState);
@@ -103,6 +109,8 @@ public class LudumDare36Entry extends ApplicationAdapter {
 		digSiteDisplay = new DigSiteDisplay(textures, gameState);
 		artifactCountDisplay = new TopLevelDisplay(textures, gameState);
 		researchCampDisplay = new ResearchCampDisplay(textures, gameState);
+		victoryBannerDisplay = new VictoryBannerDisplay(textures, gameState);
+		
 		menuDisplay = new MenuDisplay();
 
 		transistToMenu();
@@ -111,11 +119,17 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	public void transistToMenu() {
 	    applicationState = ApplicationState.MENU;
         Gdx.input.setInputProcessor(new MenuInputHandler(this, viewport));
-
 	}
+
+	public void transistToEndgame() {
+        applicationState = ApplicationState.ENDGAME;
+        Gdx.input.setInputProcessor(endGameInputHandler);
+    }
+	
 	public void transistToGame(TreasureDensity treasureDensity, TimeConstraint timeConstraint) {
 	    applicationState = ApplicationState.INGAME;
         gameState.reset(levelGenRandom, treasureDensity, timeConstraint, 50);
+        inputHandler.resetSelectedItem();
         Gdx.input.setInputProcessor(inputHandler);
 	}
     
@@ -130,9 +144,11 @@ public class LudumDare36Entry extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		switch(applicationState) {
-            case ENDGAME :
+            case ENDGAME:
+                victoryBannerDisplay.update();
                 break;
-            case INGAME :
+                
+            case INGAME:
                 workerUpdater.update();
                 
                 campUpdater.update();
@@ -157,10 +173,12 @@ public class LudumDare36Entry extends ApplicationAdapter {
                 artifactCountDisplay.update();
                 
                 if (gameState.remainingTime() <= 0) {
-                    transistToMenu();
+                    transistToEndgame();
+                    Gdx.input.setInputProcessor(endGameInputHandler);
                 }
                 if (gameState.researchedArtifacts > gameState.artifactsRequired) {
-                    transistToMenu();
+                    transistToEndgame();
+                    Gdx.input.setInputProcessor(endGameInputHandler);
                 }
                 break;
             case MENU :

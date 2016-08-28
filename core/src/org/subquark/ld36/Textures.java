@@ -26,6 +26,11 @@ public class Textures {
     public Texture totalArtifactHeader = new Texture(Gdx.files.internal("artifact_count_header.png"));
     public Texture researchedArtifactHeader = new Texture(Gdx.files.internal("researched_artifact_count_header.png"));
     public Texture timeLeftHeader = new Texture(Gdx.files.internal("time_left_header.png"));
+    public Texture requiredArtifactHeader = new Texture(Gdx.files.internal("required_artifact_count_header.png"));
+    
+    public Texture victoryBanner = new Texture(Gdx.files.internal("victory_banner.png"));
+    public Texture defeatBanner = new Texture(Gdx.files.internal("defeat_banner.png"));
+    
     public void dispose() {
         worker.dispose();
         camp.dispose();
@@ -43,5 +48,9 @@ public class Textures {
         diggerBuyButtonSelected.dispose();
         prospectorBuyButtonSelected.dispose();
         researchBuyButtonSelected.dispose();
+        requiredArtifactHeader.dispose();
+        
+        victoryBanner.dispose();
+        defeatBanner.dispose();
     }
 }

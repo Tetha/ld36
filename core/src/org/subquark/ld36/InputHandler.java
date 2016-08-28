@@ -142,4 +142,8 @@ public class InputHandler implements InputProcessor {
     public boolean scrolled(int amount) {
         return false;
     }
+
+    public void resetSelectedItem() {
+        selectedItem = SelectedItem.Nothing;
+    }
 }

@@ -37,6 +37,9 @@ public class GameState {
         return timeLimit - timeSpent;
     }
     
+    public boolean wasWon() {
+        return remainingTime() > 0 && researchedArtifacts >= artifactsRequired;
+    }
     public void reset(Random levelGenRandom, TreasureDensity treasureDensity, TimeConstraint timeConstraint, int artifactsRequired) {
         level = Level.newLevel(levelGenRandom,
                                Level.WIDTH_TILES, Level.HEIGHT_TILES,
