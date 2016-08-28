@@ -3,6 +3,7 @@ package org.subquark.ld36.research_camp;
 import java.util.Random;
 
 import org.subquark.ld36.GameState;
+import org.subquark.ld36.Sounds;
 import org.subquark.ld36.particels.Particle;
 
 import com.badlogic.gdx.Gdx;
@@ -10,10 +11,12 @@ import com.badlogic.gdx.Gdx;
 public class ResearchCampUpdater {
     private final Random otherRandom;
     private final GameState gameState;
+    private final Sounds sounds;
         
-    public ResearchCampUpdater(Random otherRandom, GameState gameState) {
+    public ResearchCampUpdater(Random otherRandom, Sounds sounds, GameState gameState) {
         this.otherRandom = otherRandom;
         this.gameState = gameState;
+        this.sounds = sounds;
     }
     
     public void update() {
@@ -44,7 +47,9 @@ public class ResearchCampUpdater {
                         p.velocityX = otherRandom.nextInt(80) - 40;
                         p.energyLeft = 0.5f + otherRandom.nextInt(20) / 100f;
                         p.type = Particle.ParticleType.SCIENCE;
+                        
                     }
+                    sounds.scienceGained.play(gameState.volume);
                 }
             }
         }

@@ -3,6 +3,7 @@ package org.subquark.ld36.digsite;
 import java.util.Random;
 
 import org.subquark.ld36.GameState;
+import org.subquark.ld36.Sounds;
 import org.subquark.ld36.level.Level;
 import org.subquark.ld36.particels.Particle;
 
@@ -12,9 +13,12 @@ public class DigSiteUpdater {
     private final GameState gameState;
     private final Random otherRandom;
     
-    public DigSiteUpdater(Random otherRandom, GameState gameState) {
+    private final Sounds sounds;
+    
+    public DigSiteUpdater(Random otherRandom, Sounds sounds, GameState gameState) {
         this.otherRandom = otherRandom;
         this.gameState = gameState;
+        this.sounds = sounds;
     }
     
     public void update() {
@@ -28,6 +32,7 @@ public class DigSiteUpdater {
             if (ds.depthMined >= DigSite.SECONDS_PER_PAYOUT) {
                 ds.depthMined -= DigSite.SECONDS_PER_PAYOUT;
                 
+                int resourcesGained = 0;
                 for (int xO = 0; xO < ds.totalMiningDiameterHorizontallyTiles(); xO++) {
                     for (int yO = 0; yO < ds.totalMiningDiameterVerticallyTiles(); yO++) {
                         if (gameState.level.hasVisibleTreasure(ds.smallestXMinedTiles() + xO, ds.smallestYMinedTiles() + yO)) {
@@ -41,7 +46,14 @@ public class DigSiteUpdater {
                             p.velocityX = otherRandom.nextInt(80) - 40;
                             p.energyLeft = 0.5f + otherRandom.nextInt(20) / 100f;
                             p.type = Particle.ParticleType.MONEY;
+                            
+                            resourcesGained ++;
                         }
+                    }
+                }
+                if (resourcesGained > 0) {
+                    if (gameState.soundOn) {
+                        sounds.resourceGained.play(gameState.volume);
                     }
                 }
             }

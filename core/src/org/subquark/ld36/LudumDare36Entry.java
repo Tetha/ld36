@@ -88,27 +88,29 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	private ParticleDisplay particleDisplay;
 	
 	private Textures textures;
+	private Sounds sounds;
 	
 	@Override
 	public void create () {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
         textures = new Textures();
+        sounds = new Sounds();
         
         renderer = new ShapeRenderer();
         camera = new PerspectiveCamera();
         viewport = new FitViewport(640, 480);
 				
-        inputHandler = new InputHandler(this, viewport, gameState);
+        inputHandler = new InputHandler(this, viewport, gameState, sounds);
         endGameInputHandler = new EndGameInputHandler(this);
         menuInputHandler = new MenuInputHandler(this, viewport);
         
         workerUpdater = new WorkerUpdater(gameState);
         campUpdater = new CampUpdater(gameState);
         scannerUpdater = new ScannerUpdater(otherRandom, gameState);
-        digSiteUpdater = new DigSiteUpdater(otherRandom, gameState);
-        researchCampUpdater = new ResearchCampUpdater(otherRandom, gameState);
+        digSiteUpdater = new DigSiteUpdater(otherRandom, sounds, gameState);
+        researchCampUpdater = new ResearchCampUpdater(otherRandom, sounds, gameState);
         timeLimitUpdater = new TimeLimitUpdater(gameState);
-        buildCooldownUpdater = new BuildCooldownUpdater(gameState);
+        buildCooldownUpdater = new BuildCooldownUpdater(sounds, gameState);
         particleUpdater = new ParticleUpdater(gameState);
         
 		workerDisplay = new WorkerDisplay(textures, gameState);
@@ -187,10 +189,12 @@ public class LudumDare36Entry extends ApplicationAdapter {
                 artifactCountDisplay.update();
                 
                 if (gameState.remainingTime() <= 0) {
+                    if (gameState.soundOn) sounds.defeatSound.play(gameState.volume);
                     transistToEndgame();
                     Gdx.input.setInputProcessor(endGameInputHandler);
                 }
                 if (gameState.researchedArtifacts >= gameState.artifactsRequired) {
+                    if (gameState.soundOn) sounds.victorySound.play(gameState.volume);
                     transistToEndgame();
                     Gdx.input.setInputProcessor(endGameInputHandler);
                 }
@@ -222,5 +226,6 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 	    textures.dispose();
+	    sounds.dispose();
 	}
 }

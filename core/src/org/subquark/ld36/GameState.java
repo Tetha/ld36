@@ -26,12 +26,16 @@ public class GameState {
     
     public int artifacts = 0;
     public int researchedArtifacts = 0;
+    
     public boolean debugging;
+    public boolean soundOn = true;
+    public float volume = 1.0f;
     
     public int artifactsRequired;
     public float timeLimit;
     public float timeSpent;
     public float buildCooldown = 1;
+    
     
     
     public int unresearchedArtifacts() {

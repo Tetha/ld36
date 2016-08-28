@@ -22,11 +22,13 @@ public class InputHandler implements InputProcessor {
     private final LudumDare36Entry mainApp;
     private final GameState gameState;
     private final Viewport viewport;
+    private final Sounds sounds;
     
-    public InputHandler(LudumDare36Entry mainApp, Viewport viewport, GameState gameState) {
+    public InputHandler(LudumDare36Entry mainApp, Viewport viewport, GameState gameState, Sounds sounds) {
         this.mainApp = mainApp;
         this.gameState = gameState;
         this.viewport = viewport;
+        this.sounds = sounds;
     }
     
     public SelectedItem getSelectedItem() {
@@ -46,6 +48,12 @@ public class InputHandler implements InputProcessor {
     public boolean keyUp(int keycode) {
         if (keycode == Input.Keys.F3) {
             gameState.debugging = false;
+            return true;
+        } if (keycode == Input.Keys.F4) {
+            gameState.buildCooldown = 0;
+            return true;
+        } if (keycode == Input.Keys.F5) {
+            gameState.researchedArtifacts += 1;
             return true;
         }
 
@@ -78,6 +86,7 @@ public class InputHandler implements InputProcessor {
         
         if (20 <= clickX && clickX <= 480 && 20 <= clickY && clickY <= 430) {
             if (gameState.buildCooldown >= 0) {
+                if (gameState.soundOn) sounds.buildDenied.play(gameState.volume);
                 return true;
             }
             
