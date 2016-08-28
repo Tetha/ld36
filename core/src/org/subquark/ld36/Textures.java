@@ -23,6 +23,9 @@ public class Textures {
     public Texture prospectorBuyButtonSelected  = new Texture(Gdx.files.internal("prospector_buy_button_selected.png"));
     public Texture researchBuyButtonSelected = new Texture(Gdx.files.internal("research_buy_button_selected.png"));
 
+    public Texture totalArtifactHeader = new Texture(Gdx.files.internal("artifact_count_header.png"));
+    public Texture researchedArtifactHeader = new Texture(Gdx.files.internal("researched_artifact_count_header.png"));
+    public Texture timeLeftHeader = new Texture(Gdx.files.internal("time_left_header.png"));
     public void dispose() {
         worker.dispose();
         camp.dispose();

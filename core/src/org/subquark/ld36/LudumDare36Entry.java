@@ -101,7 +101,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 		levelDisplay = new LevelDisplay(textures, gameState);
 		shopDisplay = new ShopDisplay(textures, inputHandler);
 		digSiteDisplay = new DigSiteDisplay(textures, gameState);
-		artifactCountDisplay = new TopLevelDisplay(gameState);
+		artifactCountDisplay = new TopLevelDisplay(textures, gameState);
 		researchCampDisplay = new ResearchCampDisplay(textures, gameState);
 		menuDisplay = new MenuDisplay();
 
@@ -126,7 +126,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
     
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(100f / 255, 100f / 255, 100f / 255, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		switch(applicationState) {
