@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Particle {
     public enum ParticleType {
-        MONEY
+        MONEY, SCIENCE
     }
     public float energyLeft;
     public ParticleType type;

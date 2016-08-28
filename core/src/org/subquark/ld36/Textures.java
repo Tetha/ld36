@@ -12,6 +12,7 @@ public class Textures {
 
     public Texture sand = new Texture(Gdx.files.internal("sand.png"));
     public Texture treasure = new Texture(Gdx.files.internal("treasure.png"));
+    public Texture scienceParticle = new Texture(Gdx.files.internal("science_particle.png"));
     
     public Texture buyCooldownPattern = new Texture(Gdx.files.internal("buy_cooldown_panel.png"));
     public Texture campBuyButton = new Texture(Gdx.files.internal("camp_buy_button.png"));
@@ -60,6 +61,7 @@ public class Textures {
         digger.dispose();
         sand.dispose();
         treasure.dispose();
+        scienceParticle.dispose();
         
         buyCooldownPattern.dispose();
         campBuyButton.dispose();

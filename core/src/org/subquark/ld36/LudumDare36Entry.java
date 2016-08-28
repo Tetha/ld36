@@ -106,7 +106,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
         campUpdater = new CampUpdater(gameState);
         scannerUpdater = new ScannerUpdater(otherRandom, gameState);
         digSiteUpdater = new DigSiteUpdater(otherRandom, gameState);
-        researchCampUpdater = new ResearchCampUpdater(gameState);
+        researchCampUpdater = new ResearchCampUpdater(otherRandom, gameState);
         timeLimitUpdater = new TimeLimitUpdater(gameState);
         buildCooldownUpdater = new BuildCooldownUpdater(gameState);
         particleUpdater = new ParticleUpdater(gameState);

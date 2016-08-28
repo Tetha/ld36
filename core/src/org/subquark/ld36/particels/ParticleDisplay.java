@@ -25,6 +25,9 @@ public class ParticleDisplay {
                 case MONEY :
                     t = textures.treasure;
                     break;
+                case SCIENCE:
+                    t = textures.scienceParticle;
+                    break;
                 default :
                     t = null;
                     break;
