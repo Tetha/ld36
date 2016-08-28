@@ -13,6 +13,16 @@ public class Textures {
     public Texture sand = new Texture(Gdx.files.internal("sand.png"));
     public Texture treasure = new Texture(Gdx.files.internal("treasure.png"));
     
+    public Texture campBuyButton = new Texture(Gdx.files.internal("camp_buy_button.png"));
+    public Texture diggerBuyButton = new Texture(Gdx.files.internal("digsite_buy_button.png"));
+    public Texture prospectorBuyButton = new Texture(Gdx.files.internal("prospector_buy_button.png"));
+    public Texture researchBuyButton = new Texture(Gdx.files.internal("research_buy_button.png"));
+
+    public Texture campBuyButtonSelected = new Texture(Gdx.files.internal("camp_buy_button_selected.png"));
+    public Texture diggerBuyButtonSelected = new Texture(Gdx.files.internal("digsite_buy_button_selected.png"));
+    public Texture prospectorBuyButtonSelected  = new Texture(Gdx.files.internal("prospector_buy_button_selected.png"));
+    public Texture researchBuyButtonSelected = new Texture(Gdx.files.internal("research_buy_button_selected.png"));
+
     public void dispose() {
         worker.dispose();
         camp.dispose();
@@ -20,5 +30,15 @@ public class Textures {
         digger.dispose();
         sand.dispose();
         treasure.dispose();
+        
+        campBuyButton.dispose();
+        diggerBuyButton.dispose();
+        prospectorBuyButton.dispose();
+        researchBuyButton.dispose();
+        
+        campBuyButtonSelected.dispose();
+        diggerBuyButtonSelected.dispose();
+        prospectorBuyButtonSelected.dispose();
+        researchBuyButtonSelected.dispose();
     }
 }

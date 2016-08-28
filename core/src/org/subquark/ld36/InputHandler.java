@@ -64,6 +64,12 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        if (button == Input.Buttons.RIGHT) {
+            selectedItem = SelectedItem.Nothing;
+            Gdx.app.log("input handler", "deselected");
+            return true;
+        }
+        
         Vector2 screenCoords = new Vector2(screenX, screenY);
         Vector2 worldCoords = viewport.unproject(screenCoords);
         int clickX = (int) worldCoords.x;
@@ -108,16 +114,14 @@ public class InputHandler implements InputProcessor {
             if (clickX < 500) {
                 return false;
             }
-            if (0 <= clickY && clickY <= 100) {
+            if (350 <= clickY && clickY <= 400) {
                 selectedItem = SelectedItem.Camp;
-            } else if (100 <= clickY && clickY <= 200) {
+            } else if (300 <= clickY && clickY <= 350) {
                 selectedItem = SelectedItem.Scanner;
-            } else if (200 <= clickY && clickY <= 300) {
+            } else if (250 <= clickY && clickY <= 300) {
                 selectedItem = SelectedItem.DigSite;
-            } else if (300 <= clickY && clickY <= 400) {
+            } else if (200 <= clickY && clickY <= 250) {
                 selectedItem = SelectedItem.Research;
-            } else if (400 <= clickY && clickY <= 500) {
-                selectedItem = SelectedItem.Nothing;
             }
             Gdx.app.log("input handler", "selected: " + Objects.toString(selectedItem));
             return true;
