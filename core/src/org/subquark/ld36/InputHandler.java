@@ -10,6 +10,9 @@ import org.subquark.ld36.scanner.Scanner;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class InputHandler implements InputProcessor {
     public enum SelectedItem { Camp, Scanner, DigSite, Research, Nothing }
@@ -17,10 +20,12 @@ public class InputHandler implements InputProcessor {
     
     private final LudumDare36Entry mainApp;
     private final GameState gameState;
+    private final Viewport viewport;
     
-    public InputHandler(LudumDare36Entry mainApp, GameState gameState) {
+    public InputHandler(LudumDare36Entry mainApp, Viewport viewport, GameState gameState) {
         this.mainApp = mainApp;
         this.gameState = gameState;
+        this.viewport = viewport;
     }
     
     public SelectedItem getSelectedItem() {
@@ -59,8 +64,10 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        int clickX = screenX;
-        int clickY = Gdx.graphics.getHeight() - screenY;
+        Vector2 screenCoords = new Vector2(screenX, screenY);
+        Vector2 worldCoords = viewport.unproject(screenCoords);
+        int clickX = (int) worldCoords.x;
+        int clickY = (int) worldCoords.y;
         
         if (20 <= clickX && clickX <= 480 && 20 <= clickY && clickY <= 430) {
             switch(selectedItem) {

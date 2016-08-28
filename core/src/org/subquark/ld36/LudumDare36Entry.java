@@ -28,11 +28,16 @@ import org.subquark.ld36.workers.WorkerUpdater;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class LudumDare36Entry extends ApplicationAdapter {
     private enum ApplicationState {
@@ -41,8 +46,9 @@ public class LudumDare36Entry extends ApplicationAdapter {
         ENDGAME,
     };
     
-	ShapeRenderer renderer;
-	Texture img;
+    private ShapeRenderer renderer;
+	private Camera camera;
+	private Viewport viewport;
 	
 	private ApplicationState applicationState;
 	
@@ -77,8 +83,10 @@ public class LudumDare36Entry extends ApplicationAdapter {
         textures = new Textures();
         
         renderer = new ShapeRenderer();
+        camera = new PerspectiveCamera();
+        viewport = new StretchViewport(640, 480);
 				
-        inputHandler = new InputHandler(this, gameState);
+        inputHandler = new InputHandler(this, viewport, gameState);
         
         workerUpdater = new WorkerUpdater(gameState);
         campUpdater = new CampUpdater(gameState);
@@ -97,13 +105,12 @@ public class LudumDare36Entry extends ApplicationAdapter {
 		researchCampDisplay = new ResearchCampDisplay(textures, gameState);
 		menuDisplay = new MenuDisplay();
 
-		
 		transistToMenu();
 	}
 
 	public void transistToMenu() {
 	    applicationState = ApplicationState.MENU;
-        Gdx.input.setInputProcessor(new MenuInputHandler(this));
+        Gdx.input.setInputProcessor(new MenuInputHandler(this, viewport));
 
 	}
 	public void transistToGame(TreasureDensity treasureDensity, TimeConstraint timeConstraint) {
@@ -111,7 +118,12 @@ public class LudumDare36Entry extends ApplicationAdapter {
         gameState.reset(levelGenRandom, treasureDensity, timeConstraint, 50);
         Gdx.input.setInputProcessor(inputHandler);
 	}
-	
+    
+	@Override
+	public void resize(int width, int height) {
+        viewport.update(width, height, true);
+    }
+    
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
