@@ -7,6 +7,7 @@ import org.subquark.ld36.camp.CampDisplay;
 import org.subquark.ld36.camp.CampUpdater;
 import org.subquark.ld36.digsite.DigSiteDisplay;
 import org.subquark.ld36.digsite.DigSiteUpdater;
+import org.subquark.ld36.goals.TimeConstraint;
 import org.subquark.ld36.goals.TimeLimitUpdater;
 import org.subquark.ld36.goals.TreasureDensity;
 import org.subquark.ld36.level.Level;
@@ -105,9 +106,9 @@ public class LudumDare36Entry extends ApplicationAdapter {
         Gdx.input.setInputProcessor(new MenuInputHandler(this));
 
 	}
-	public void transistToGame(TreasureDensity treasureDensity) {
+	public void transistToGame(TreasureDensity treasureDensity, TimeConstraint timeConstraint) {
 	    applicationState = ApplicationState.INGAME;
-        gameState.reset(levelGenRandom, treasureDensity, 100, 120);
+        gameState.reset(levelGenRandom, treasureDensity, timeConstraint, 120);
         Gdx.input.setInputProcessor(inputHandler);
 	}
 	

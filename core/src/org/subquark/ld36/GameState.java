@@ -6,6 +6,7 @@ import java.util.Random;
 
 import org.subquark.ld36.camp.Camp;
 import org.subquark.ld36.digsite.DigSite;
+import org.subquark.ld36.goals.TimeConstraint;
 import org.subquark.ld36.goals.TreasureDensity;
 import org.subquark.ld36.level.Level;
 import org.subquark.ld36.research_camp.ResearchCamp;
@@ -36,7 +37,7 @@ public class GameState {
         return timeLimit - timeSpent;
     }
     
-    public void reset(Random levelGenRandom, TreasureDensity treasureDensity, int artifactsRequired, int timeLimit) {
+    public void reset(Random levelGenRandom, TreasureDensity treasureDensity, TimeConstraint timeConstraint, int artifactsRequired) {
         level = Level.newLevel(levelGenRandom,
                                Level.WIDTH_TILES, Level.HEIGHT_TILES,
                                treasureDensity);
@@ -52,7 +53,7 @@ public class GameState {
         debugging = false;
         
         this.artifactsRequired = artifactsRequired;
-        this.timeLimit = timeLimit;
+        this.timeLimit = timeConstraint.timeLimit;
         this.timeSpent = 0;
     }
 }
