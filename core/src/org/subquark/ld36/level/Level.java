@@ -9,7 +9,7 @@ public class Level {
     public static final int WIDTH_TILES = 50;
     public static final int HEIGHT_TILES = 45;
     
-    private final float treasureThreshold;
+    public final float treasureThreshold;
     
     private final int width;
     private final int height;

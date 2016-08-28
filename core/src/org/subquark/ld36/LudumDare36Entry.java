@@ -7,6 +7,7 @@ import org.subquark.ld36.camp.CampDisplay;
 import org.subquark.ld36.camp.CampUpdater;
 import org.subquark.ld36.digsite.DigSiteDisplay;
 import org.subquark.ld36.digsite.DigSiteUpdater;
+import org.subquark.ld36.goals.TimeLimitUpdater;
 import org.subquark.ld36.goals.TreasureDensity;
 import org.subquark.ld36.level.Level;
 import org.subquark.ld36.level.LevelDisplay;
@@ -53,6 +54,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	private ScannerUpdater scannerUpdater;
 	private DigSiteUpdater digSiteUpdater;
 	private ResearchCampUpdater researchCampUpdater;
+	private TimeLimitUpdater timeLimitUpdater;
 	
 	private InputHandler inputHandler;
 	
@@ -82,7 +84,8 @@ public class LudumDare36Entry extends ApplicationAdapter {
         scannerUpdater = new ScannerUpdater(otherRandom, gameState);
         digSiteUpdater = new DigSiteUpdater(gameState);
         researchCampUpdater = new ResearchCampUpdater(gameState);
-                
+        timeLimitUpdater = new TimeLimitUpdater(gameState);
+        
 		workerDisplay = new WorkerDisplay(textures, gameState);
 		campDisplay = new CampDisplay(textures, gameState);
 		scannerDisplay = new ScannerDisplay(textures, gameState);
@@ -104,7 +107,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	}
 	public void transistToGame(TreasureDensity treasureDensity) {
 	    applicationState = ApplicationState.INGAME;
-        gameState.reset(levelGenRandom, treasureDensity);
+        gameState.reset(levelGenRandom, treasureDensity, 100, 120);
         Gdx.input.setInputProcessor(inputHandler);
 	}
 	
@@ -123,6 +126,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
                 scannerUpdater.update();
                 digSiteUpdater.update();
                 researchCampUpdater.update();
+                timeLimitUpdater.update();
                 
                 if (gameState.debugging) {
                     drawGrid();
@@ -138,6 +142,10 @@ public class LudumDare36Entry extends ApplicationAdapter {
                 
                 shopDisplay.update();
                 artifactCountDisplay.update();
+                
+                if (gameState.remainingTime() <= 0) {
+                    transistToMenu();
+                }
                 break;
             case MENU :
                 menuDisplay.update();
@@ -153,7 +161,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	    for (int i = 0; i < Level.WIDTH_TILES; i++) {
 	        for (int j = 0; j < Level.HEIGHT_TILES; j++) {
 	            float noiseHere = gameState.level.getRawNoiseAt(i, j);
-	            if (noiseHere > 0.8) {
+	            if (noiseHere > gameState.level.treasureThreshold) {
 	                renderer.setColor(noiseHere, noiseHere, noiseHere, noiseHere);
 	            } else {
 	                renderer.setColor(Color.BLACK);

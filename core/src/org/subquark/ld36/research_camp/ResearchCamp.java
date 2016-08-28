@@ -9,9 +9,8 @@ public class ResearchCamp {
     
     public static final float POWER_FOR_ONE_WORKER = 1;
     
-    public static final float SECONDS_PER_RESEARCH = 2;
+    public static final float SECONDS_PER_RESEARCH = 5;
     public static final float MONEY_PER_RESEARCH = 1;
-    public static final int MAX_TICKS_PER_ARTIFACT = 10;
     
     public int x;
     public int y;

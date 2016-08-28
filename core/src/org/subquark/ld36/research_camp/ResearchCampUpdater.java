@@ -28,10 +28,7 @@ public class ResearchCampUpdater {
                 rs.researchProgress += deltaTime;
                 if (rs.researchProgress >= ResearchCamp.SECONDS_PER_RESEARCH) {
                     rs.researchProgress -= ResearchCamp.SECONDS_PER_RESEARCH;
-                    rs.researchTicksForThisArtifact++;
-                    if (rs.researchTicksForThisArtifact >= ResearchCamp.MAX_TICKS_PER_ARTIFACT) {
-                        rs.hasArtifact = false;
-                    }
+                    rs.hasArtifact = false;
                 }
             }
         }

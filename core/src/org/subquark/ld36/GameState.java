@@ -24,11 +24,19 @@ public class GameState {
     public int researchedArtifacts = 0;
     public boolean debugging;
     
+    public int artifactsRequired;
+    public float timeLimit;
+    public float timeSpent;
+    
     public int unresearchedArtifacts() {
         return artifacts - researchedArtifacts;
     }
 
-    public void reset(Random levelGenRandom, TreasureDensity treasureDensity) {
+    public float remainingTime() {
+        return timeLimit - timeSpent;
+    }
+    
+    public void reset(Random levelGenRandom, TreasureDensity treasureDensity, int artifactsRequired, int timeLimit) {
         level = Level.newLevel(levelGenRandom,
                                Level.WIDTH_TILES, Level.HEIGHT_TILES,
                                treasureDensity);
@@ -42,5 +50,9 @@ public class GameState {
         artifacts = 0;
         researchedArtifacts = 0;
         debugging = false;
+        
+        this.artifactsRequired = artifactsRequired;
+        this.timeLimit = timeLimit;
+        this.timeSpent = 0;
     }
 }
