@@ -33,16 +33,12 @@ public class TopLevelDisplay {
         font.draw(batch,
                   Integer.toString(gameState.artifacts),
                   260, 470);
+
         batch.draw(textures.researchedArtifactHeader, 280, 450);
         font.draw(batch,
                   Integer.toString(gameState.researchedArtifacts) + "/" + Integer.toString(gameState.artifactsRequired),
                   390, 470);
 
-
-//        font.draw(batch,
-//                  String.format("Total Artifacts: %d / Researched Artifacts: %d / Time left: %.0f",
-//                                gameState.artifacts, gameState.researchedArtifacts, gameState.remainingTime()),
-//                  10, 480);
         batch.end();
     }
 }

@@ -6,6 +6,7 @@ import java.util.Random;
 
 import org.subquark.ld36.camp.Camp;
 import org.subquark.ld36.digsite.DigSite;
+import org.subquark.ld36.goals.BuildCooldownUpdater;
 import org.subquark.ld36.goals.TimeConstraint;
 import org.subquark.ld36.goals.TreasureDensity;
 import org.subquark.ld36.level.Level;
@@ -28,6 +29,7 @@ public class GameState {
     public int artifactsRequired;
     public float timeLimit;
     public float timeSpent;
+    public float buildCooldown = 1;
     
     public int unresearchedArtifacts() {
         return artifacts - researchedArtifacts;
@@ -58,5 +60,9 @@ public class GameState {
         this.artifactsRequired = artifactsRequired;
         this.timeLimit = timeConstraint.timeLimit;
         this.timeSpent = 0;
+    }
+
+    public float buildCooldownDecimal() {
+        return buildCooldown / BuildCooldownUpdater.BUILD_COOLDOWN;
     }
 }

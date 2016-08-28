@@ -13,6 +13,7 @@ public class Textures {
     public Texture sand = new Texture(Gdx.files.internal("sand.png"));
     public Texture treasure = new Texture(Gdx.files.internal("treasure.png"));
     
+    public Texture buyCooldownPattern = new Texture(Gdx.files.internal("buy_cooldown_panel.png"));
     public Texture campBuyButton = new Texture(Gdx.files.internal("camp_buy_button.png"));
     public Texture diggerBuyButton = new Texture(Gdx.files.internal("digsite_buy_button.png"));
     public Texture prospectorBuyButton = new Texture(Gdx.files.internal("prospector_buy_button.png"));
@@ -31,6 +32,26 @@ public class Textures {
     public Texture victoryBanner = new Texture(Gdx.files.internal("victory_banner.png"));
     public Texture defeatBanner = new Texture(Gdx.files.internal("defeat_banner.png"));
     
+    public Texture littleTreasureButton = new Texture(Gdx.files.internal("little_treasure_button.png"));
+    public Texture someTreasureButton = new Texture(Gdx.files.internal("some_treasure_button.png"));
+    public Texture lottaTreasureButton = new Texture(Gdx.files.internal("lotta_treasure_button.png"));
+    
+    public Texture littleTreasureButtonSelected = new Texture(Gdx.files.internal("little_treasure_button_selected.png"));
+    public Texture someTreasureButtonSelected = new Texture(Gdx.files.internal("some_treasure_button_selected.png"));
+    public Texture lottaTreasureButtonSelected = new Texture(Gdx.files.internal("lotta_treasure_button_selected.png"));    
+
+    public Texture littleTimeButton = new Texture(Gdx.files.internal("little_time_button.png"));
+    public Texture someTimeButton = new Texture(Gdx.files.internal("some_time_button.png"));
+    public Texture lottaTimeButton = new Texture(Gdx.files.internal("lotta_time_button.png"));
+    
+    public Texture littleTimeButtonSelected = new Texture(Gdx.files.internal("little_time_button_selected.png"));
+    public Texture someTimeButtonSelected = new Texture(Gdx.files.internal("some_time_button_selected.png"));
+    public Texture lottaTimeButtonSelected = new Texture(Gdx.files.internal("lotta_time_button_selected.png"));    
+
+    public Texture playButton = new Texture(Gdx.files.internal("play_button.png"));
+    public Texture timePanel = new Texture(Gdx.files.internal("time_panel.png"));
+    public Texture treasurePanel = new Texture(Gdx.files.internal("treasure_panel.png"));
+    
     public void dispose() {
         worker.dispose();
         camp.dispose();
@@ -39,6 +60,7 @@ public class Textures {
         sand.dispose();
         treasure.dispose();
         
+        buyCooldownPattern.dispose();
         campBuyButton.dispose();
         diggerBuyButton.dispose();
         prospectorBuyButton.dispose();
@@ -52,5 +74,25 @@ public class Textures {
         
         victoryBanner.dispose();
         defeatBanner.dispose();
+        
+        littleTreasureButton.dispose();
+        someTreasureButton.dispose();
+        lottaTreasureButton.dispose();
+        
+        littleTreasureButtonSelected.dispose();
+        someTreasureButtonSelected.dispose();
+        lottaTreasureButtonSelected.dispose();
+        
+        littleTimeButton.dispose();
+        someTimeButton.dispose();
+        lottaTimeButton.dispose();
+        
+        littleTimeButtonSelected.dispose();
+        someTimeButtonSelected.dispose();
+        lottaTimeButtonSelected.dispose();
+        
+        playButton.dispose();
+        timePanel.dispose();
+        treasurePanel.dispose();
     }
 }

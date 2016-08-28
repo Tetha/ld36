@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import org.subquark.ld36.camp.Camp;
 import org.subquark.ld36.digsite.DigSite;
+import org.subquark.ld36.goals.BuildCooldownUpdater;
 import org.subquark.ld36.research_camp.ResearchCamp;
 import org.subquark.ld36.scanner.Scanner;
 
@@ -76,18 +77,24 @@ public class InputHandler implements InputProcessor {
         int clickY = (int) worldCoords.y;
         
         if (20 <= clickX && clickX <= 480 && 20 <= clickY && clickY <= 430) {
+            if (gameState.buildCooldown >= 0) {
+                return true;
+            }
+            
             switch(selectedItem) {
                 case Camp:
                     Camp newCamp = new Camp();
                     gameState.camps.add(newCamp);
                     newCamp.x = clickX;
                     newCamp.y = clickY;
+                    gameState.buildCooldown = BuildCooldownUpdater.BUILD_COOLDOWN;
                     break;
                 case DigSite:
                     DigSite newDig = new DigSite();
                     gameState.digSites.add(newDig);
                     newDig.x = clickX;
                     newDig.y = clickY;
+                    gameState.buildCooldown = BuildCooldownUpdater.BUILD_COOLDOWN;
                     break;
                 case Nothing:
                     break;
@@ -96,13 +103,14 @@ public class InputHandler implements InputProcessor {
                     gameState.researchCamps.add(newResearchCamp);
                     newResearchCamp.x = clickX;
                     newResearchCamp.y = clickY;
+                    gameState.buildCooldown = BuildCooldownUpdater.BUILD_COOLDOWN;
                     break;
                 case Scanner:
                     Scanner newScanner = new Scanner();
                     gameState.scanners.add(newScanner);
                     newScanner.x = clickX;
                     newScanner.y = clickY;
-                    
+                    gameState.buildCooldown = BuildCooldownUpdater.BUILD_COOLDOWN;
                     break;
                 default :
                     break;

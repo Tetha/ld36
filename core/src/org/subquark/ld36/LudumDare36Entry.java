@@ -7,6 +7,7 @@ import org.subquark.ld36.camp.CampDisplay;
 import org.subquark.ld36.camp.CampUpdater;
 import org.subquark.ld36.digsite.DigSiteDisplay;
 import org.subquark.ld36.digsite.DigSiteUpdater;
+import org.subquark.ld36.goals.BuildCooldownUpdater;
 import org.subquark.ld36.goals.EndGameInputHandler;
 import org.subquark.ld36.goals.TimeConstraint;
 import org.subquark.ld36.goals.TimeLimitUpdater;
@@ -65,6 +66,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	private DigSiteUpdater digSiteUpdater;
 	private ResearchCampUpdater researchCampUpdater;
 	private TimeLimitUpdater timeLimitUpdater;
+	private BuildCooldownUpdater buildCooldownUpdater;
 	
 	private InputHandler inputHandler;
 	private InputProcessor endGameInputHandler;
@@ -100,12 +102,13 @@ public class LudumDare36Entry extends ApplicationAdapter {
         digSiteUpdater = new DigSiteUpdater(gameState);
         researchCampUpdater = new ResearchCampUpdater(gameState);
         timeLimitUpdater = new TimeLimitUpdater(gameState);
+        buildCooldownUpdater = new BuildCooldownUpdater(gameState);
         
 		workerDisplay = new WorkerDisplay(textures, gameState);
 		campDisplay = new CampDisplay(textures, gameState);
 		scannerDisplay = new ScannerDisplay(textures, gameState);
 		levelDisplay = new LevelDisplay(textures, gameState);
-		shopDisplay = new ShopDisplay(textures, inputHandler);
+		shopDisplay = new ShopDisplay(textures, gameState, inputHandler);
 		digSiteDisplay = new DigSiteDisplay(textures, gameState);
 		artifactCountDisplay = new TopLevelDisplay(textures, gameState);
 		researchCampDisplay = new ResearchCampDisplay(textures, gameState);
@@ -156,6 +159,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
                 digSiteUpdater.update();
                 researchCampUpdater.update();
                 timeLimitUpdater.update();
+                buildCooldownUpdater.update();
                 
                 if (gameState.debugging) {
                     drawGrid();
@@ -176,7 +180,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
                     transistToEndgame();
                     Gdx.input.setInputProcessor(endGameInputHandler);
                 }
-                if (gameState.researchedArtifacts > gameState.artifactsRequired) {
+                if (gameState.researchedArtifacts >= gameState.artifactsRequired) {
                     transistToEndgame();
                     Gdx.input.setInputProcessor(endGameInputHandler);
                 }
