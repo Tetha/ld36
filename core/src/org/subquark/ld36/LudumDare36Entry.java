@@ -108,7 +108,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	}
 	public void transistToGame(TreasureDensity treasureDensity, TimeConstraint timeConstraint) {
 	    applicationState = ApplicationState.INGAME;
-        gameState.reset(levelGenRandom, treasureDensity, timeConstraint, 120);
+        gameState.reset(levelGenRandom, treasureDensity, timeConstraint, 50);
         Gdx.input.setInputProcessor(inputHandler);
 	}
 	
@@ -145,6 +145,9 @@ public class LudumDare36Entry extends ApplicationAdapter {
                 artifactCountDisplay.update();
                 
                 if (gameState.remainingTime() <= 0) {
+                    transistToMenu();
+                }
+                if (gameState.researchedArtifacts > gameState.artifactsRequired) {
                     transistToMenu();
                 }
                 break;
