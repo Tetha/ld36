@@ -94,7 +94,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 		shopDisplay = new ShopDisplay(inputHandler);
 		digSiteDisplay = new DigSiteDisplay(textures, gameState);
 		artifactCountDisplay = new TopLevelDisplay(gameState);
-		researchCampDisplay = new ResearchCampDisplay(gameState);
+		researchCampDisplay = new ResearchCampDisplay(textures, gameState);
 		menuDisplay = new MenuDisplay();
 
 		
