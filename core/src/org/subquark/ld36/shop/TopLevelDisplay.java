@@ -23,20 +23,22 @@ public class TopLevelDisplay {
     
     public void update() {
         batch.begin();
-        batch.draw(textures.totalArtifactHeader, 0, 450);
         
-        font.draw(batch,
-                  Integer.toString(gameState.artifacts),
-                  120, 470);
-        batch.draw(textures.researchedArtifactHeader, 140, 450);
-        font.draw(batch,
-                  Integer.toString(gameState.researchedArtifacts),
-                  260, 470);
-        
-        batch.draw(textures.timeLeftHeader, 280, 450);
+        batch.draw(textures.timeLeftHeader, 0, 450);
         font.draw(batch,
                   Integer.toString((int)gameState.remainingTime()) + "s",
+                  100, 470);
+        
+        batch.draw(textures.totalArtifactHeader, 140, 450);
+        font.draw(batch,
+                  Integer.toString(gameState.artifacts),
+                  260, 470);
+        batch.draw(textures.researchedArtifactHeader, 280, 450);
+        font.draw(batch,
+                  Integer.toString(gameState.researchedArtifacts) + "/" + Integer.toString(gameState.artifactsRequired),
                   390, 470);
+
+
 //        font.draw(batch,
 //                  String.format("Total Artifacts: %d / Researched Artifacts: %d / Time left: %.0f",
 //                                gameState.artifacts, gameState.researchedArtifacts, gameState.remainingTime()),
