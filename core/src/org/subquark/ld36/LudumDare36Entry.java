@@ -7,8 +7,11 @@ import org.subquark.ld36.camp.CampDisplay;
 import org.subquark.ld36.camp.CampUpdater;
 import org.subquark.ld36.digsite.DigSiteDisplay;
 import org.subquark.ld36.digsite.DigSiteUpdater;
+import org.subquark.ld36.goals.TreasureDensity;
 import org.subquark.ld36.level.Level;
 import org.subquark.ld36.level.LevelDisplay;
+import org.subquark.ld36.menu.MenuDisplay;
+import org.subquark.ld36.menu.MenuInputHandler;
 import org.subquark.ld36.research_camp.ResearchCampDisplay;
 import org.subquark.ld36.research_camp.ResearchCampUpdater;
 import org.subquark.ld36.scanner.Scanner;
@@ -30,8 +33,16 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class LudumDare36Entry extends ApplicationAdapter {
+    private enum ApplicationState {
+        MENU,
+        INGAME,
+        ENDGAME,
+    };
+    
 	ShapeRenderer renderer;
 	Texture img;
+	
+	private ApplicationState applicationState;
 	
 	Random levelGenRandom = new Random();
 	Random otherRandom = new Random();
@@ -45,6 +56,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	
 	private InputHandler inputHandler;
 	
+	private MenuDisplay menuDisplay;
 	private LevelDisplay levelDisplay;
 	private WorkerDisplay workerDisplay;
 	private CampDisplay campDisplay;
@@ -59,79 +71,81 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	@Override
 	public void create () {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
-
         textures = new Textures();
         
         renderer = new ShapeRenderer();
-        
-        gameState.level = Level.newLevel(levelGenRandom, Level.WIDTH_TILES, Level.HEIGHT_TILES, 0.8f);
 				
+        inputHandler = new InputHandler(this, gameState);
+        
         workerUpdater = new WorkerUpdater(gameState);
         campUpdater = new CampUpdater(gameState);
         scannerUpdater = new ScannerUpdater(otherRandom, gameState);
         digSiteUpdater = new DigSiteUpdater(gameState);
         researchCampUpdater = new ResearchCampUpdater(gameState);
-        
-        inputHandler = new InputHandler(gameState);
-        Gdx.input.setInputProcessor(inputHandler);
-        
+                
 		workerDisplay = new WorkerDisplay(textures, gameState);
 		campDisplay = new CampDisplay(textures, gameState);
 		scannerDisplay = new ScannerDisplay(textures, gameState);
 		levelDisplay = new LevelDisplay(gameState);
 		shopDisplay = new ShopDisplay(inputHandler);
-		digSiteDisplay = new DigSiteDisplay(gameState);
+		digSiteDisplay = new DigSiteDisplay(textures, gameState);
 		artifactCountDisplay = new TopLevelDisplay(gameState);
 		researchCampDisplay = new ResearchCampDisplay(gameState);
+		menuDisplay = new MenuDisplay();
+
 		
-		Worker testWorker = new Worker();
-		gameState.workers.add(testWorker);
-		testWorker.x = 100;
-		testWorker.y = 100;
-		testWorker.lifetimeLeft = Worker.START_LIFETIME;
-		
-		Camp testCamp = new Camp();
-		gameState.camps.add(testCamp);
-		testCamp.x = 200;
-		testCamp.y = 300;
-		
-		Scanner testScanner = new Scanner();
-		gameState.scanners.add(testScanner);
-		testScanner.x = 200;
-		testScanner.y = 200;
-		
-        Scanner testScanner2 = new Scanner();
-        gameState.scanners.add(testScanner2);
-        testScanner2.x = 400;
-        testScanner2.y = 300;
+		transistToMenu();
 	}
 
+	public void transistToMenu() {
+	    applicationState = ApplicationState.MENU;
+        Gdx.input.setInputProcessor(new MenuInputHandler(this));
+
+	}
+	public void transistToGame(TreasureDensity treasureDensity) {
+	    applicationState = ApplicationState.INGAME;
+        gameState.reset(levelGenRandom, treasureDensity);
+        Gdx.input.setInputProcessor(inputHandler);
+	}
+	
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		workerUpdater.update();
-		
-		campUpdater.update();
-		scannerUpdater.update();
-		digSiteUpdater.update();
-		researchCampUpdater.update();
-		
-		if (gameState.debugging) {
-		    drawGrid();
-		} else {
-		    levelDisplay.update();
+		switch(applicationState) {
+            case ENDGAME :
+                break;
+            case INGAME :
+                workerUpdater.update();
+                
+                campUpdater.update();
+                scannerUpdater.update();
+                digSiteUpdater.update();
+                researchCampUpdater.update();
+                
+                if (gameState.debugging) {
+                    drawGrid();
+                } else {
+                    levelDisplay.update();
+                }
+                campDisplay.update();
+                scannerDisplay.update();
+                digSiteDisplay.update();
+                researchCampDisplay.update();
+                
+                workerDisplay.update();
+                
+                shopDisplay.update();
+                artifactCountDisplay.update();
+                break;
+            case MENU :
+                menuDisplay.update();
+                break;
+            default :
+                break;
+		    
 		}
-        campDisplay.update();
-        scannerDisplay.update();
-        digSiteDisplay.update();
-        researchCampDisplay.update();
-        
-        workerDisplay.update();
-        
-        shopDisplay.update();
-        artifactCountDisplay.update();
 	}
 	
 	private void drawGrid() {

@@ -15,9 +15,11 @@ public class InputHandler implements InputProcessor {
     public enum SelectedItem { Camp, Scanner, DigSite, Research, Nothing }
     private SelectedItem selectedItem = SelectedItem.Nothing;
     
-    private GameState gameState;
+    private final LudumDare36Entry mainApp;
+    private final GameState gameState;
     
-    public InputHandler(GameState gameState) {
+    public InputHandler(LudumDare36Entry mainApp, GameState gameState) {
+        this.mainApp = mainApp;
         this.gameState = gameState;
     }
     

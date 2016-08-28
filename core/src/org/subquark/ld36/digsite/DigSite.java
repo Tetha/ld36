@@ -4,7 +4,7 @@ import org.subquark.ld36.level.Level;
 
 public class DigSite {
     public static final float COOLDOWN = 5000;
-    public static final int WIDTH = 20;
+    public static final int WIDTH = 30;
     public static final int HEIGHT = 20;
     
     public static final int MINING_RANGE_RADIUS = 20;

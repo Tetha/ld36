@@ -21,7 +21,7 @@ public class TopLevelDisplay {
     public void update() {
         batch.begin();
         font.draw(batch,
-                  String.format("Total Artifacts: %d / Unresearched Artifacts: %d / Money: %d", gameState.artifacts, gameState.unresearchedArtifacts(), gameState.money),
+                  String.format("Total Artifacts: %d / Researched Artifacts: %d", gameState.artifacts, gameState.researchedArtifacts),
                   10, 480);
         batch.end();
     }
