@@ -70,6 +70,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 	
 	private InputHandler inputHandler;
 	private InputProcessor endGameInputHandler;
+	private MenuInputHandler menuInputHandler;
 	
 	private MenuDisplay menuDisplay;
 	private LevelDisplay levelDisplay;
@@ -95,6 +96,7 @@ public class LudumDare36Entry extends ApplicationAdapter {
 				
         inputHandler = new InputHandler(this, viewport, gameState);
         endGameInputHandler = new EndGameInputHandler(this);
+        menuInputHandler = new MenuInputHandler(this, viewport);
         
         workerUpdater = new WorkerUpdater(gameState);
         campUpdater = new CampUpdater(gameState);
@@ -114,14 +116,14 @@ public class LudumDare36Entry extends ApplicationAdapter {
 		researchCampDisplay = new ResearchCampDisplay(textures, gameState);
 		victoryBannerDisplay = new VictoryBannerDisplay(textures, gameState);
 		
-		menuDisplay = new MenuDisplay();
+		menuDisplay = new MenuDisplay(textures, gameState, menuInputHandler);
 
 		transistToMenu();
 	}
 
 	public void transistToMenu() {
 	    applicationState = ApplicationState.MENU;
-        Gdx.input.setInputProcessor(new MenuInputHandler(this, viewport));
+        Gdx.input.setInputProcessor(menuInputHandler);
 	}
 
 	public void transistToEndgame() {
