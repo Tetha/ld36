@@ -139,6 +139,8 @@ public class InputHandler implements InputProcessor {
                 selectedItem = SelectedItem.DigSite;
             } else if (200 <= clickY && clickY <= 250) {
                 selectedItem = SelectedItem.Research;
+            } else if (0 <= clickY && clickY <= 50) {
+                gameState.soundOn = !gameState.soundOn;
             }
             Gdx.app.log("input handler", "selected: " + Objects.toString(selectedItem));
             return true;

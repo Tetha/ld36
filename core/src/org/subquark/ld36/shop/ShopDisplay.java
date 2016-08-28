@@ -56,6 +56,8 @@ public class ShopDisplay {
             batch.draw(textures.researchBuyButton, 500, 200);
         }
         batch.draw(textures.research, 510, 205);
+        
+        batch.draw(textures.muteButton, 500, 0);
         batch.end();
         
         renderer.begin(ShapeType.Filled);
