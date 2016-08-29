@@ -41,13 +41,13 @@ public class MenuInputHandler implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         Vector2 screenCoords = new Vector2(screenX, screenY);
-        Gdx.app.debug("menu input handler", String.format("screenX: %d screenY: %d", screenX, screenY));
+        //Gdx.app.debug("menu input handler", String.format("screenX: %d screenY: %d", screenX, screenY));
 
         Vector2 worldCoords = viewport.unproject(screenCoords);
         float clickX = worldCoords.x;
         float clickY = worldCoords.y;
         
-        Gdx.app.debug("menu input handler", String.format("clickX: %f clickY: %f", clickX, clickY));
+        //Gdx.app.debug("menu input handler", String.format("clickX: %f clickY: %f", clickX, clickY));
         if (180 <= clickY && clickY <= 240) {
             // treasure row
             if (200 < clickX && clickX <= 260) {
